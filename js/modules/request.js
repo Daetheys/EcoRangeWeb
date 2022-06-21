@@ -10,14 +10,14 @@ export function sendToDB(call, data, url) {
         async: true,
         url: url,
         success: function (r) {
-
+	    console.log('sendToDB : success - ',r.error,call)
             if (r.error > 0 && (call + 1) < MAX_REQUESTS) {
                 sendToDB(call + 1);
             }
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-	    console.log('error sentToDB',XMLHttpRequest.responseText);
+	    console.log('sendToDB : error - ',XMLHttpRequest.responseText);
             if ((call + 1) < MAX_REQUESTS) {
                 sendToDB(call + 1);
             } else {
