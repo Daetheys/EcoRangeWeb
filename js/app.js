@@ -225,10 +225,11 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
                      id: exp.subID,
                      exp: exp.expName,
                      browser: exp.browsInfo,
-		     minRew: exp.minRange[seasonNum].toString(),
-		     maxRew: exp.maxRange[seasonNum].toString(),
-		     ranks: exp.ranks,
-		     rewards:seasonNum
+		     minRew: exp.minRange[seasonNum],
+		     maxRew: exp.maxRange[seasonNum],
+		     ranks: exp.ranks.toString(),
+		     rewards:exp.rewards.toString(),
+		     seasonID: seasonNum
 		 },
 		 'php/InsertSeasonDetails.php'
 		);
