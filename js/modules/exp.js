@@ -155,7 +155,7 @@ export class ExperimentParameters {
 	    rewardsRange = [];
 	    for (let j=0;j<nArms;j++){
 		rew = (maxRange[i]-minRange[i])*j/nArms+minRange[i]
-		rewardsRange.push(Math.trunc(rew*100)/100);
+		rewardsRange.push(Math.trunc(rew));
 	    }
 	    rewards.push(rewardsRange);
 	}
