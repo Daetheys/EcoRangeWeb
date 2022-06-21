@@ -111,22 +111,22 @@ export class ChoiceManager {
         this._showReward(reward, choice);
 	if (this.exp.online) {
             sendToDB(0,
-                {
-                    exp: this.exp.expName,
-                    expID: this.exp.expID,
-                    id: this.exp.subID,
-                    test: +(this.exp.isTesting),
-		    season: this.seasonNum,
-                    trial: this.trialNum,
-                    choice: choice,
-		    reward: reward,
-		    rank: rank,
-                    reaction_time: reactionTime,
-                    rewardTot: this.exp.totalReward,
-                    session: this.sessionNum,
-                    choice_time: choiceTime - this.exp.initTime,
-                },
-                'php/InsertLearningDataDB.php'
+                     {
+			 exp: this.exp.expName,
+			 expID: this.exp.expID,
+			 id: this.exp.subID,
+			 test: +(this.exp.isTesting),
+			 season: this.seasonNum,
+			 trial: this.trialNum,
+			 choice: choice,
+			 reward: reward,
+			 rank: rank,
+			 reaction_time: reactionTime,
+			 rewardTot: this.exp.totalReward,
+			 session: this.sessionNum,
+			 choice_time: choiceTime - this.exp.initTime,
+                     },
+                     'php/InsertLearningDataDB.php'
 		    );
 	}
         setTimeout(function (event) {

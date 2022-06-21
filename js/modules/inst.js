@@ -195,6 +195,7 @@ export class Instructions {
                     GUI.panelSetParagraph(text[pageNum]);
                 } else {
                     if (event.data.obj.exp.online) {
+			console.log('send exp db');
                         sendToDB(0,
                             {
                                 expID: event.data.obj.exp.expID,
