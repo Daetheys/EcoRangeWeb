@@ -17,7 +17,7 @@ export function sendToDB(call, data, url) {
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-
+	    console.log('error sentToDB',XMLHttpRequest.responseText);
             if ((call + 1) < MAX_REQUESTS) {
                 sendToDB(call + 1);
             } else {
