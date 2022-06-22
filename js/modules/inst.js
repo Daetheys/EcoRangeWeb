@@ -204,7 +204,7 @@ export class Instructions {
                                 conversionRate: event.data.obj.exp.conversionRate,
 				minRews: event.data.obj.exp.minRange.toString(),
 				maxRews: event.data.obj.exp.maxRange.toString(),
-				nSeasons: event.data.obj.exp.nSeason,
+				nSeasons: event.data.obj.exp.nSeasons,
 				nTrialsPerSeason: event.data.obj.exp.nTrialsPerSeason,
 				nArms: event.data.obj.exp.nArms
                         })
@@ -217,7 +217,7 @@ export class Instructions {
                                 conversionRate: event.data.obj.exp.conversionRate,
 				minRews: event.data.obj.exp.minRange.toString(),
 				maxRews: event.data.obj.exp.maxRange.toString(),
-				nSeasons: event.data.obj.exp.nSeason,
+				nSeasons: event.data.obj.exp.nSeasons,
 				nTrialsPerSeason: event.data.obj.exp.nTrialsPerSeason,
 				nArms: event.data.obj.exp.nArms
                             },
