@@ -196,6 +196,9 @@ export class Instructions {
                 } else {
                     if (event.data.obj.exp.online) {
 			console.log('send exp db');
+			console.log(event.data.obj.exp.minRange);
+			console.log(event.data.obj.exp.maxRange);
+			console.log('-');
                         sendToDB(0,
                             {
                                 expID: event.data.obj.exp.expID,

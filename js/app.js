@@ -219,9 +219,6 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
     //Store the actual season in db
     if (exp.online){
 	console.log('send season db');
-	console.log(choice.ranks);
-	console.log(choice.rewards);
-	console.log('-');
 	sendToDB(0,
 		 {
                      expID: exp.expID,
