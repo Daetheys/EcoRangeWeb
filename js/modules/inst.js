@@ -207,14 +207,14 @@ export class Instructions {
 				nSeasons: event.data.obj.exp.nSeasons,
 				nTrialsPerSeason: event.data.obj.exp.nTrialsPerSeason,
 				nArms: event.data.obj.exp.nArms
-                        })
+                        });
                         sendToDB(0,
                             {
                                 expID: event.data.obj.exp.expID,
                                 id: event.data.obj.exp.subID,
                                 exp: event.data.obj.exp.expName,
+				conversionRate: event.data.obj.exp.conversionRate,
                                 browser: event.data.obj.exp.browsInfo,
-                                conversionRate: event.data.obj.exp.conversionRate,
 				minRews: event.data.obj.exp.minRange.toString(),
 				maxRews: event.data.obj.exp.maxRange.toString(),
 				nSeasons: event.data.obj.exp.nSeasons,
