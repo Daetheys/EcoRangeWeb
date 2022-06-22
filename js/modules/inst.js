@@ -197,16 +197,16 @@ export class Instructions {
                     if (event.data.obj.exp.online) {
 			console.log('send exp db');
 			console.log({
-                                expID: event.data.obj.exp.expID,
-                                id: event.data.obj.exp.subID,
-                                exp: event.data.obj.exp.expName,
-                                browser: event.data.obj.exp.browsInfo,
-                                conversionRate: event.data.obj.exp.conversionRate,
-				minRews: event.data.obj.exp.minRange.toString(),
-				maxRews: event.data.obj.exp.maxRange.toString(),
-				nSeasons: event.data.obj.exp.nSeasons,
-				nTrialsPerSeason: event.data.obj.exp.nTrialsPerSeason,
-				nArms: event.data.obj.exp.nArms
+                            expID: event.data.obj.exp.expID,
+                            id: event.data.obj.exp.subID,
+                            exp: event.data.obj.exp.expName,
+                            browser: event.data.obj.exp.browsInfo,
+                            conversionRate: event.data.obj.exp.conversionRate,
+			    minRews: event.data.obj.exp.minRange.toString(),
+			    maxRews: event.data.obj.exp.maxRange.toString(),
+			    nSeasons: event.data.obj.exp.nSeasons,
+			    nTrialsPerSeason: event.data.obj.exp.nTrialsPerSeason,
+			    nArms: event.data.obj.exp.nArms
                         });
                         sendToDB(0,
                             {
