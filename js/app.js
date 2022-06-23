@@ -200,7 +200,7 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
         exp: exp,
     }
     console.log(seasonNum,exp['nSeasons']);
-    if (seasonNum==exp['nSeasons']){
+    if (seasonNum==exp['nSeasons']-1){
 	nextParams['instrutionNum'] = 8;
 	console.log('end');
     }
