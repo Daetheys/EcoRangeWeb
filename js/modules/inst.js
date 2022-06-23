@@ -10,6 +10,8 @@ export class Instructions {
 
     goFullscreen(nextFunc, nextParams) {
 
+	GUI.newSeasonHide();
+
         GUI.panelSetTitle('Introduction');
         GUI.panelInsertParagraph('To continue the experiment, you must enable fullscreen');
         GUI.panelInsertButton({
@@ -194,6 +196,7 @@ export class Instructions {
                     pageNum++;
                     GUI.panelSetParagraph(text[pageNum]);
                 } else {
+		    GUI.setActiveCurrentStep('task');
                     if (event.data.obj.exp.online) {
 			console.log('send exp db');
 			console.log({

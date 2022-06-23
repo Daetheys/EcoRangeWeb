@@ -54,8 +54,6 @@ export class ChoiceManager {
 	this.ranks = Array.from(Array(this.exp['nArms']).keys());
 	shuffleArray(this.ranks);
 
-	console.debug("call");
-
 	this.rewards = [];
 	for (let i=0;i<this.ranks.length;i++){
 	    this.rewards.push(this.exp.rewards[this.seasonNum][this.ranks[i]]);
@@ -87,7 +85,7 @@ export class ChoiceManager {
                     return;
 		clickEnabled = false;
 		event.data.obj.skipEnabled = false;
-		this.style.borderColor = "grey";
+		this.style.borderColor = "#32ae97";
 		event.data.obj._clickEvent(i, params);
             });
 	}
@@ -131,7 +129,7 @@ export class ChoiceManager {
 	}
         setTimeout(function (event) {
             event.obj.next()
-        }, this.feedbackDuration + this.beforeFeedbackDuration * (+(this.showFeedback)), {obj: this});
+        }, this.feedbackDuration, {obj: this});
     }
 
     _getReward(choice, params) {
@@ -168,8 +166,6 @@ export class ChoiceManager {
             return;
         }
         this.trialNum++;
-	console.debug(this.trialNum);
-	console.debug(this.nTrial);
         if (this.trialNum < this.nTrial) {
             GUI.hideOptions();
             setTimeout(function (event) {
@@ -180,9 +176,15 @@ export class ChoiceManager {
             $('#TextBoxDiv').fadeOut(500);
             setTimeout(function (event) {
                 $('#Stage').empty();
-                GUI.panelShow();
-                event.obj.nextFunc(event.obj.nextParams);
+		GUI.newSeasonShow();
+		//event.obj.nextFunc(event.obj.nextParams);
             }, 500, {obj: this});
+	    setTimeout(function (event) {
+		GUI.newSeasonRemove();
+	    }, 2500, {obj: this});
+	    setTimeout(function (eventb) {
+		eventb.obj.nextFunc(eventb.obj.nextParams);
+	    }, 3000, {obj: this});
         }
     };
 }

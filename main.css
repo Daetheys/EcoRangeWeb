@@ -698,17 +698,56 @@ body {
 }
 
 
-.grid { margin:1em auto;
-	border-collapse:separate;
-	border-spacing:5px}
+.grid {
+    margin:1em auto;
+    border-collapse:separate;
+    border-spacing:8px
+}
+
 .grid td {
     cursor:pointer;
     width:90px; height:90px;
-    border:5px solid #000;
+    border:2px solid #c7c7c7;
+    border-radius: 15px;
     text-align:center;
-    font-family:sans-serif; font-size:13px
+    font-family:sans-serif; font-size:24px; font-color:#999999;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2)
 }
-.grid td.clicked {
-    background-color:yellow;
-    font-weight:bold; color:red;
+
+/*.season_panel {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .35rem;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    width: 55%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}*/
+
+.season_panel {
+    position: relative;
+    padding: 1.75rem 2.15rem;
+    margin-bottom: 5%;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    border-top-left-radius: .35rem;
+    border-top-right-radius: .35rem;
+    /*border-radius: .25rem;
+    /*background-color: ;*/
+    color: white;
+    font-size: 120%;
+    /*font: bold;*/
+    background: rgba(50, 174, 151, 1); /*url('images/logo-ens.png') no-repeat 99% 50%;*/
+    background-size: 50px;
+    font-weight: bolder;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }

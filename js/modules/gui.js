@@ -37,6 +37,18 @@ export class GUI {
         }
     }
 
+    static newSeasonShow(){
+	$('#season_panel').fadeIn(400);
+    }
+
+    static newSeasonRemove(){
+	$('#season_panel').fadeOut(400);
+    }
+    
+    static newSeasonHide(){
+	$("#season_panel").hide();
+    }
+    
     static panelSetParagraph(text) {
         $('.card-text').remove();
         $('#card-content').prepend('<div class="card-text">' + text + '</div>');
