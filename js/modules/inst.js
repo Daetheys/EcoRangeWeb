@@ -74,7 +74,7 @@ export class Instructions {
         GUI.panelInsertParagraphTitle('Procedure');
         GUI.panelInsertParagraph('During your participation in this study, we will ask you to answer several simple ' +
             'questionnaires and tests, which do not require any particular competence.' +
-            'Your internet-based participation will require approximately 50 minutes.');
+            'Your internet-based participation will require approximately 20 minutes.');
 
         GUI.panelInsertParagraphTitle('Voluntary Participation And Confidentiality');
         GUI.panelInsertParagraph('Your participation in this study is voluntary. This means that you are consenting to participate in this project without external pressure.' +

@@ -41,11 +41,11 @@ function main() {
             maxCompensation: 250, // in pence (in addition of the initial endowment)
             feedbackDuration: 1000, // how many milliseconds we present the outcome
             beforeFeedbackDuration: 0, // how many milliseconds before the outcome
-            nSeasons: 30,
+            nSeasons: 1,
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
-            compLink: 'https://app.prolific.ac/submissions/complete?cc=RNFS5HP5' // prolific completion link
+            compLink: 'https://app.prolific.ac' // prolific completion link
                                                                                 // will be displayed at the end
         }
     );
@@ -200,7 +200,7 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
         exp: exp,
     }
     if (seasonNum==exp['nSeasons']){
-	nextParams['instrutionNum'] = 5;
+	nextParams['instrutionNum'] = 8;
     }
 
     choice = new ChoiceManager(
