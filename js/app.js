@@ -199,8 +199,10 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
         seasonNum: seasonNum+1,
         exp: exp,
     }
+    console.log(seasonNum,exp['nSeasons']);
     if (seasonNum==exp['nSeasons']){
 	nextParams['instrutionNum'] = 8;
+	console.log('end');
     }
 
     choice = new ChoiceManager(
