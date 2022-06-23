@@ -63,6 +63,7 @@ export class ChoiceManager {
 
     /* =================== public methods ================== */
 
+    
     run() {
 
         GUI.initGameStageDiv();
@@ -174,14 +175,15 @@ export class ChoiceManager {
         } else {
             GUI.hideSkipButton();
             $('#TextBoxDiv').fadeOut(500);
-            setTimeout(function (event) {
-                $('#Stage').empty();
-		GUI.newSeasonShow();
-		//event.obj.nextFunc(event.obj.nextParams);
-            }, 500, {obj: this});
-	    setTimeout(function (event) {
-		GUI.newSeasonRemove();
-	    }, 2500, {obj: this});
+	    if (this.nextParams['instructionNum'] != 8){
+		setTimeout(function (event) {
+                    $('#Stage').empty();
+		    GUI.newSeasonShow();
+		}, 500, {obj: this});
+		setTimeout(function (event) {
+		    GUI.newSeasonRemove();
+		}, 2500, {obj: this});
+	    }
 	    setTimeout(function (eventb) {
 		eventb.obj.nextFunc(eventb.obj.nextParams);
 	    }, 3000, {obj: this});
