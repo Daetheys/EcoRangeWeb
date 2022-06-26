@@ -81,6 +81,11 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
     #Sum fixed
     s.add(sum(maxR)==sum_val)
 
+    #Randomizer
+    indexs = np.random.choice(len(chokepoints),len(chokepoints)//4,replace=False)
+    for i in range(len(indexs)-1):
+        s.add(chokepoints[indexs[i]]<chokepoints[indexs[i+1]])
+
     res = s.check()
 
     if res == sat:
@@ -94,11 +99,37 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
             points[str(c)] = sol[c].as_long()
 
         return {"min":miniR,"max":maxiR,"points":points}
+    print('unsat')
     return {"min":None,"max":None,"points":None}
 
-print(json.dumps(generate_range()))
 
 if __name__ == '__main__':
+    import json
+    sols = {}
+    for i in range(100):
+        print(i)
+        out = generate_range()
+
+        sols[str(i)] = out
+    with open('ranges.json','w') as f:
+        json.dump(sols,f)
+
+    import matplotlib.pyplot as plt
+
+    for i in range(25):
+
+        miniR,maxiR,points = sols[str(i)]['min'],sols[str(i)]['max'],sols[str(i)]['points']
+        if miniR:
+            plt.subplot(5,5,i+1)
+            print(miniR)
+            plt.plot(range(30),miniR,label='minR',marker='.')
+            plt.plot(range(30),maxiR,label='maxR',marker='.')
+    plt.legend()
+
+    plt.show()
+    
+
+if __name__ == '__main__' and False:
     import matplotlib.pyplot as plt
     sols = []
     for i in range(25):
