@@ -70,24 +70,23 @@ export class ExperimentParameters {
 
     }
 
-    /*async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
-	var range = await $.ajax({
+    async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
+	$.ajax({
 	    type: "POST",
-	    url: "py/gen.py",
+	    url: "py/gen.php",
 	    data: {},
 	    success: function (r) {
-		var result = r;
+		console.log(r);
 	    },
 	    error: function (req,txt,err) {
 		console.error("Error in get range",req.responseText,txt,err);
 	    }
 	});
-	console.log(range);
 	
-    }*/
+    }
     
 
-    _initRewards(nSeasons,nTrialsPerSeason,nArms) {
+    _initRewards_old(nSeasons,nTrialsPerSeason,nArms) {
 	
 	let highJumpRange = [70,120];
 	let lowJumpRange = [-1,1];
