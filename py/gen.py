@@ -2,6 +2,8 @@ from z3 import *
 import numpy as np
 import json
 
+print({'a':5,'b':7})
+
 def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regularity=range(2,4),sum_val=2500,chokerange=2):
 
     s = Solver()
@@ -83,7 +85,7 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
     s.add(sum(maxR)==sum_val)
 
     res = s.check()
-    print('end')
+
     if res == sat:
         sol = s.model()
 
@@ -97,7 +99,7 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
         return {"min":miniR,"max":maxiR,"points":points}
     return {"min":None,"max":None,"points":None}
 
-print(json.dumps(generate_range()))
+#print(json.dumps(generate_range()))
 
 if __name__ == '__main__' and False:
     import matplotlib.pyplot as plt

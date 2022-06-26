@@ -71,15 +71,17 @@ export class ExperimentParameters {
     }
 
     async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
-	$.ajax({
+	await $.ajax({
 	    type: "POST",
 	    url: "py/gen.php",
 	    data: {},
+	    dataType: 'json',
 	    success: function (r) {
+		var data = r;
 		console.log(r);
 	    },
 	    error: function (req,txt,err) {
-		console.error("Error in get range",req.responseText,txt,err);
+		console.log("Error in get range",req.responseText,txt,err);
 	    }
 	});
 	
