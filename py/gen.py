@@ -3,6 +3,7 @@ import numpy as np
 import json
 
 def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regularity=range(2,4),sum_val=2500,chokerange=2):
+
     s = Solver()
 
     #Define vars
@@ -14,7 +15,7 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
         v = []
         for k in range(1,5):
             v.append(maxR[i] == minR[i] + k*20 - 1)
-            s.add(Or(*v))
+        s.add(Or(*v))
 
     #Str Positive
     for e in minR:
@@ -48,7 +49,7 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
                 v1 = And(int(np.random.choice(jump_size_max))>v1a,v1a>int(np.random.choice(jump_size_min)))
             else:
                 v1 = v1b
-                #Min dynamics
+            #Min dynamics
             v2 = True
             v2bb = maxR[k+1]-maxR[k]
             v2b = And(v2bb<int(np.random.choice(regularity)),v2bb>-int(np.random.choice(regularity)))
@@ -61,11 +62,11 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
             no_other_chokepoint_near_list = []
             for k2 in range(k-chokerange,k+chokerange+1):
                 no_other_chokepoint_near_list += no_other_chokepoint(c,k2)
-                no_other_chokepoint_near = And(*no_other_chokepoint_near_list)
-                v_it = Implies((chokepoints[c] == k),And(v1,v2,no_other_chokepoint_near))
-                other_chokepoints = [e for i,e in enumerate(chokepoints) if i != c]
-                another_chokepoint = [e==k for e in other_chokepoints]
-                v_itb = Implies((chokepoints[c] != k),Or(And(v1b,v2b),*another_chokepoint))
+            no_other_chokepoint_near = And(*no_other_chokepoint_near_list)
+            v_it = Implies((chokepoints[c] == k),And(v1,v2,no_other_chokepoint_near))
+            other_chokepoints = [e for i,e in enumerate(chokepoints) if i != c]
+            another_chokepoint = [e==k for e in other_chokepoints]
+            v_itb = Implies((chokepoints[c] != k),Or(And(v1b,v2b),*another_chokepoint))
 
             v_its.append(v_it)
             v_its.append(v_itb)
