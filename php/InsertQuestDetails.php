@@ -7,7 +7,7 @@ $ID = stripslashes(htmlspecialchars($_POST['id']));
 $EXP = stripslashes(htmlspecialchars($_POST['exp']));
 $TEXT = stripslashes(htmlspecialchars($_POST['text'])); 
 
-$stmt = $db->prepare("INSERT INTO nicolas_ecorange_exp VALUE(?,?,?,?,NOW())");
+$stmt = $db->prepare("INSERT INTO nicolas_ecorange_quest VALUE(?,?,?,?,NOW())");
 $stmt->bind_param("ssss",$EXPID,$ID,$EXP,$TEXT);
 $stmt->execute();
 $err = $stmt->errno ;
