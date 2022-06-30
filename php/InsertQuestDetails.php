@@ -14,7 +14,7 @@ $err = $stmt->errno ;
 $data = array(
       'error' => $err,
     );
-$stmt->close();
- $db->close();
+$stmt->close();	
+ $db->close();		
 echo json_encode($data);
  ?>
