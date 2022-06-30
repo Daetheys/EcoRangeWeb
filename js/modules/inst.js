@@ -32,6 +32,25 @@ export class Instructions {
         });
     }
 
+    nextBlock(nextFunc, nextParams) {
+
+	GUI.panelFlush();
+	GUI.panelFadeIn();
+	console.log('nextBlock');
+        GUI.panelSetTitle('New Block');
+        GUI.panelInsertParagraph('Click to move the next block with new options.');
+        GUI.panelInsertButton({
+            id: 'nextBlock', value: 'Next',
+            clickFunc: function () {
+		GUI.panelFadeOut();
+		setTimeout(function (eventb) {
+		    eventb.nextFunc(eventb.nextParams);
+		}, 500, {nextFunc:nextFunc,nextParams:nextParams});
+                //nextFunc(nextParams);
+            }
+        });
+    }
+
     setUserID(nextFunc, nextParams) {
 
         GUI.panelFlush();
@@ -146,20 +165,19 @@ export class Instructions {
 
     displayInitialInstruction(funcParams, nextFunc, nextParams) {
 
-        let nPages = 2;
+        let nPages = 3;
         let pageNum = funcParams["pageNum"];
 
         GUI.panelFlush();
         GUI.panelSetTitle('General Instructions');
 
         let text = {
-	    1: 'In this experiment you will be given a set of 20 buttons on which you can click. Each button returns a number of points. \n\n'
-		+ 'The amount of points given by each button may vary across time.',
-            2: ' • In addition of the fixed compensation provided by Prolific, you have been endowed with an additional 2.5 pounds. \n\n'
-                + ' • Depending on your choices you can either double this endowment or lose it. \n\n'
+            1: ' • In addition of the fixed compensation provided by Prolific, you can double this endowment depending on your choices in the experiment task. \n\n'
                 + ' • Following experimental economics methodological standards, no deception is involved concerning the calculation of the final payoff.\n\n'
                 + ' • Across the experiment, you can win a bonus up to '
-                + this.exp.maxPoints + ' points = ' + this.exp.pointsToPounds(this.exp.maxPoints).toFixed(2) + ' pounds!'
+                + this.exp.maxPoints + ' points = ' + this.exp.pointsToPounds(this.exp.maxPoints).toFixed(2) + ' pounds',
+	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are advantageous than others.',
+	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set end and a new one began.'
         };
 
         GUI.panelSetParagraph(text[pageNum]);
@@ -174,6 +192,11 @@ export class Instructions {
                 if (pageNum > 1) {
                     pageNum--;
                     GUI.panelSetParagraph(text[pageNum]);
+		    if (pageNum == 2) {
+			GUI.panelSetImage({src:'images/screenshots/screen4.png',width:'50%',height:'50%'});
+		    } else {
+			GUI.panelRemoveImage();
+		    }
                 }
                 if (pageNum === 1) {
                     GUI.hideElement('back');
@@ -195,6 +218,11 @@ export class Instructions {
                 if (pageNum < nPages) {
                     pageNum++;
                     GUI.panelSetParagraph(text[pageNum]);
+		    if (pageNum == 2) {
+			GUI.panelSetImage({src:'images/screenshots/screen4.png',width:'50%',height:'50%'});
+		    } else {
+			GUI.panelRemoveImage();
+		    }
                 } else {
 		    GUI.setActiveCurrentStep('task');
                     if (event.data.obj.exp.online) {
@@ -627,6 +655,34 @@ export class Instructions {
         });
     }
 
+    comments(nextFunc, nextParams){
+	GUI.panelFlush();
+	GUI.panelFadeIn();
+        GUI.panelSetTitle('Comments');
+        GUI.panelInsertParagraph('Do you have any comments ?');
+	GUI.panelInsertTextBox({rows:5,cols:90});
+        GUI.panelInsertButton({
+            id: 'nextComment', value: 'Next',
+            clickFunc: function () {
+		GUI.panelFadeOut();
+		if (nextParams.exp.online)
+		    sendToDB(0,
+                             {
+				 expID: nextParams.exp.expID,
+				 id: nextParams.exp.subID,
+				 exp: nextParams.exp.expName,
+				 text: $('#textbox_id').val()
+                             },
+                             'php/InsertQuestDetails.php'
+                            );
+		setTimeout(function (eventb) {
+		    eventb.nextFunc(eventb.nextParams);
+		}, 500, {nextFunc:nextFunc,nextParams:nextParams});
+                //nextFunc(nextParams);
+            }
+        });
+    }
+
     endExperiment() {
 
         GUI.initGameStageDiv();
@@ -641,6 +697,7 @@ export class Instructions {
             'Thank you for playing!<br><br><a href="' + this.exp.compLink + '">Please click the link to complete this study</a><br></h3><br>';
 
         $('#TextBoxDiv').html(Title);
+
     }
 
 }

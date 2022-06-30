@@ -59,6 +59,9 @@ export class ChoiceManager {
 	    this.rewards.push(this.exp.rewards[this.seasonNum][this.ranks[i]]);
 	}
 
+	this.colors = ['#F0FFFF','#F0F8FF','#FFFAF0','#F8F8FF','#F0FFF0','#FFFFF0','#F5FFFA','#FDF5E6','#FFFAFA','#FFF5EE','#F5F5F5']
+	this.color = this.colors[Math.trunc(Math.random()*this.colors.length)]
+
     }
 
     /* =================== public methods ================== */
@@ -80,7 +83,7 @@ export class ChoiceManager {
         let clickEnabled = true;
 
 	for (let i=0; i<20; i++){
-
+	    //$('#td'+i.toString())[0].style.backgroundColor = this.color;
             $('#td'+i.toString()).click({obj: this}, function (event) {
 		if (!clickEnabled)
                     return;
@@ -175,7 +178,7 @@ export class ChoiceManager {
         } else {
             GUI.hideSkipButton();
             $('#TextBoxDiv').fadeOut(500);
-	    if (this.nextParams['instructionNum'] != 8){
+	    /*if (this.nextParams['instructionNum'] != 8){
 		setTimeout(function (event) {
                     $('#Stage').empty();
 		    GUI.newSeasonShow();
@@ -183,10 +186,11 @@ export class ChoiceManager {
 		setTimeout(function (event) {
 		    GUI.newSeasonRemove();
 		}, 2500, {obj: this});
-	    }
+	    }*/
 	    setTimeout(function (eventb) {
 		eventb.obj.nextFunc(eventb.obj.nextParams);
-	    }, 3000, {obj: this});
+		}, 500, {obj: this});
+	    //this.nextFunc(this.nextParams);
         }
     };
 }

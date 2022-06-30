@@ -65,6 +65,15 @@ export class GUI {
         $('#card-content').append('<div class="card-title">' + title + '</div>');
     }
 
+    static panelRemoveImage(){
+	$('.card-img').remove();
+    }
+
+    static panelSetImage({src = '', width = '100%', height = '100%'} = {}) {
+	$('.card-img').remove();
+        $('#card-content').append(
+            '<img class="card-img card-center" src="' + src + '" style="width: ' + width + '; height: ' + height + ' ;" >');
+    }
     static panelInsertImage({src = '', width = '100%', height = '100%'} = {}) {
         $('#card-content').append(
             '<img class="card-img card-center" src="' + src + '" style="width: ' + width + '; height: ' + height + ' ;" >');
@@ -111,6 +120,17 @@ export class GUI {
             + '">');
     }
 
+    static panelInsertTextBox({
+                                classname = 'card-center',
+                                cols = 90,
+                                rows = 5,
+                                name = "textbox_id",
+                                div = "card-content",
+    } = {}) {
+	$('#' + div).append(
+	    '<textarea id="'+name+'" name="'+name+'" cols="'+cols.toString()+'" rows="'+rows.toString()+'"></textarea>');
+    }
+
     static panelInsertCheckBox({
                                    classname = "",
                                    id = "",
@@ -138,6 +158,14 @@ export class GUI {
 
     static panelHide() {
         $('#panel').hide(800);
+    }
+
+    static panelFadeIn(){
+	$('#panel').fadeIn(500);
+    }
+
+    static panelFadeOut(){
+	$('#panel').fadeOut(500);
     }
 
     static hideOptions() {

@@ -59,7 +59,7 @@ export class ExperimentParameters {
         //this._loadImg(imgPath, nCond, nSession);
         //this._initTrialObj(nCond, nSession);
 
-	this.maxPoints = nArms*nTrialsPerSeason*nSeasons
+	this.maxPoints = 2500
 
         // define compensation functions
         // ===================================================================== //
@@ -71,9 +71,32 @@ export class ExperimentParameters {
     }
 
     async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
-	$.getJSON("ranges.json",function (json) {
-	    console.log(json['0'])
-	})
+	let data = await $.getJSON("py/ranges.json",function (json) {
+	    var index = Math.trunc(Math.random()*Object.keys(json).length);
+	    console.log(json);
+	    console.log(index);
+	    return json[index.toString()];
+	});
+
+	var index = Math.trunc(Math.random()*Object.keys(data).length).toString();
+	
+	this.minRange = data[index]['min'];
+	this.maxRange = data[index]['max'];
+
+	console.log(this.minRange);
+	console.log(this.maxRange);
+	
+	this.rewards = [];
+	var range;
+	for(let i=0;i<this.minRange.length;i++){
+	    this.rewards.push([]);
+	    range = this.maxRange[i] - this.minRange[i] + 1;
+	    for(let j=this.maxRange[i];j>=this.minRange[i];j-=range/nArms){
+		this.rewards[i].push(j);
+	    }
+	    //this.rewards[i].shift();
+	}
+	console.log(this.rewards);
     }
     
 

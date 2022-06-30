@@ -35,13 +35,13 @@ function main() {
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
         {
-            online: true,   // send network requests
+            online: false,   // send network requests
             isTesting: false, // isTesting==in development vs in production
             expName: 'EcologicalRange', // experience name
             maxCompensation: 250, // in pence (in addition of the initial endowment)
             feedbackDuration: 1000, // how many milliseconds we present the outcome
             beforeFeedbackDuration: 0, // how many milliseconds before the outcome
-            nSeasons: 5,
+            nSeasons: 1,
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
@@ -142,12 +142,11 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
              );
             return;
         case 7:
-            inst.endTraining(
-                {pageNum: 1, isTraining: 1, seasonNum: 3, sessionNum: sessionNum},
+            inst.comments(
                 // what will be executed next
                 stateMachine,
                 {
-                    instructionNum: 4, exp: exp, sessionNum: 0, seasonNum: 0
+                    instructionNum: 8, exp: exp, sessionNum: sessionNum, seasonNum: seasonNum
                 }
             );
             return;
@@ -179,6 +178,14 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
                 }
             );
             return;
+        case 'next':
+	    inst.nextBlock(
+		stateMachine,
+		{
+		    instructionNum: 'end', exp: exp, sessionNum:sessionNum,seasonNum:seasonNum
+		}
+	    );
+	    return;
 
 
         case 'end':
@@ -194,14 +201,14 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
     let choice;
 
     let nextParams = {
-        instructionNum: 'end',
+        instructionNum: 'next',
         sessionNum: sessionNum,
         seasonNum: seasonNum+1,
         exp: exp,
     }
     console.log(seasonNum,exp['nSeasons']);
     if (seasonNum==exp['nSeasons']-1){
-	nextParams['instructionNum'] = 8;
+	nextParams['instructionNum'] = 7;
 	console.log('end');
     }
 
