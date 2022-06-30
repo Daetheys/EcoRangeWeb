@@ -668,7 +668,7 @@ export class Instructions {
 		if (nextParams.exp.online)
 		    sendToDB(0,
                              {
-				 expID: nextParams.exp.expID,
+				 expID: nextParams.exp.expID.toString(),
 				 id: nextParams.exp.subID,
 				 exp: nextParams.exp.expName,
 				 text: $('#textbox_id').val()
