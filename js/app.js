@@ -224,10 +224,8 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
             nextParams: nextParams
         }
     );
-    console.debug('Start Seasons :'+seasonNum.toString());
     //Store the actual season in db
     if (exp.online){
-	console.log('send season db');
 	sendToDB(0,
 		 {
                      expID: exp.expID,
