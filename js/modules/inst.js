@@ -652,16 +652,19 @@ export class Instructions {
             id: 'nextComment', value: 'Next',
             clickFunc: function () {
 		GUI.panelFadeOut();
-		if (nextParams.exp.online)
+		if (nextParams.exp.online){
+		    console.log($('#textbox_id').val());
+		    console.log(typeof $('#textbox_id').val());
 		    sendToDB(0,
                              {
-				 expID: nextParams.exp.expID.toString(),
-				 id: nextParams.exp.subID.toString(),
-				 exp: nextParams.exp.expName.toString(),
+				 expID: nextParams.exp.expID,
+				 id: nextParams.exp.subID,
+				 exp: nextParams.exp.expName,
 				 text: $('#textbox_id').val().toString()
                              },
                              'php/InsertQuestDetails.php'
                             );
+		}
 		setTimeout(function (eventb) {
 		    eventb.nextFunc(eventb.nextParams);
 		}, 500, {nextFunc:nextFunc,nextParams:nextParams});
