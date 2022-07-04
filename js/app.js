@@ -35,13 +35,13 @@ function main() {
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
         {
-            online: false,   // send network requests
+            online: true,   // send network requests
             isTesting: false, // isTesting==in development vs in production
             expName: 'EcologicalRange', // experience name
-            maxCompensation: 250, // in pence (in addition of the initial endowment)
+            maxCompensation: 200, // in pence (in addition of the initial endowment)
             feedbackDuration: 1000, // how many milliseconds we present the outcome
             beforeFeedbackDuration: 0, // how many milliseconds before the outcome
-            nSeasons: 1,
+            nSeasons: 30,
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',

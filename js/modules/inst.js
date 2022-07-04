@@ -163,9 +163,42 @@ export class Instructions {
         });
     }
 
+    showImage(pageNum) {
+	GUI.panelRemoveImage();
+	switch (pageNum) {
+	case 2:
+	    GUI.panelSetImage({src:'images/screenshots/screen5.png',width:'50%',height:'50%'});
+	    return;
+	case 3:
+	    GUI.panelSetImage({src:'images/screenshots/screen5.png',width:'50%',height:'50%'});
+	    return;
+	case 4:
+	    GUI.panelSetImage({src:'images/screenshots/screen5.png',width:'50%',height:'50%'});
+	    return;
+	case 5:
+	    GUI.panelSetImage({src:'images/screenshots/screen6.png',width:'50%',height:'50%'});
+	    return;
+	case 6:
+	    GUI.panelSetImage({src:'images/screenshots/screen7.png',width:'50%',height:'50%'});
+	    return;
+	case 7:
+	    GUI.panelSetImage({src:'images/screenshots/screen8.png',width:'50%',height:'50%'});
+	    return;
+	case 8:
+	    GUI.panelSetImage({src:'images/screenshots/screen9.png',width:'50%',height:'50%'});
+	    return;
+	case 9:
+	    GUI.panelSetImage({src:'images/screenshots/screen9.png',width:'50%',height:'50%'});
+	    return;
+	default:
+	    GUI.panelRemoveImage();
+	    return;
+	}
+    }
+
     displayInitialInstruction(funcParams, nextFunc, nextParams) {
 
-        let nPages = 3;
+        let nPages = 11;
         let pageNum = funcParams["pageNum"];
 
         GUI.panelFlush();
@@ -173,11 +206,17 @@ export class Instructions {
 
         let text = {
             1: ' • In addition of the fixed compensation provided by Prolific, you can double this endowment depending on your choices in the experiment task. \n\n'
-                + ' • Following experimental economics methodological standards, no deception is involved concerning the calculation of the final payoff.\n\n'
-                + ' • Across the experiment, you can win a bonus up to '
-                + this.exp.maxPoints + ' points = ' + this.exp.pointsToPounds(this.exp.maxPoints).toFixed(2) + ' pounds',
-	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are advantageous than others.',
-	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set end and a new one began.'
+                + ' • Following experimental economics methodological standards, no deception is involved concerning the calculation of the final payoff.\n\n',
+	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are more advantageous than others.',
+	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set end and a new one began.',
+	    4: 'Here is an short example:',
+	    5: 'Click 1',
+	    6: 'Click 2',
+	    7: 'Click 3',
+	    8: 'Click 4',
+	    9: 'Click 5 - Note that you can click on the same button several times',
+	    10: "In the end I have collected 251 points in 5 clicks. This is worth 20 bonus pences approximately.",
+	    11: "Now it's your turn"
         };
 
         GUI.panelSetParagraph(text[pageNum]);
@@ -186,21 +225,17 @@ export class Instructions {
         GUI.panelInsertDiv({id: 'buttonBox'});
 
         GUI.panelInsertButton({
-            id: 'back', value: 'Back',
+            id: 'back', value: 'Back', clickArgs: {obj: this},
             div: 'buttonBox', classname: 'btn btn-default card-button',
-            clickFunc: function () {
+            clickFunc: function (event) {
                 if (pageNum > 1) {
                     pageNum--;
                     GUI.panelSetParagraph(text[pageNum]);
-		    if (pageNum == 2) {
-			GUI.panelSetImage({src:'images/screenshots/screen4.png',width:'50%',height:'50%'});
-		    } else {
-			GUI.panelRemoveImage();
-		    }
-                }
-                if (pageNum === 1) {
-                    GUI.hideElement('back');
-                }
+		    event.data.obj.showImage(pageNum);
+		} else {
+		    GUI.panelRemoveImage();
+		    //GUI.hideElement('back');
+		}
             }
         });
 
@@ -218,11 +253,7 @@ export class Instructions {
                 if (pageNum < nPages) {
                     pageNum++;
                     GUI.panelSetParagraph(text[pageNum]);
-		    if (pageNum == 2) {
-			GUI.panelSetImage({src:'images/screenshots/screen4.png',width:'50%',height:'50%'});
-		    } else {
-			GUI.panelRemoveImage();
-		    }
+		    event.data.obj.showImage(pageNum);
                 } else {
 		    GUI.setActiveCurrentStep('task');
                     if (event.data.obj.exp.online) {
@@ -646,7 +677,7 @@ export class Instructions {
 	GUI.panelFlush();
 	GUI.panelFadeIn();
         GUI.panelSetTitle('Comments');
-        GUI.panelInsertParagraph('Do you have any comments ?');
+        GUI.panelInsertParagraph('Thank you for finishing this task. Do you have any comments ?');
 	GUI.panelInsertTextBox({rows:5,cols:90});
         GUI.panelInsertButton({
             id: 'nextComment', value: 'Next',
@@ -683,7 +714,7 @@ export class Instructions {
 
         let Title = '<h3 align = "center">The game is over!<br>' +
             'You won ' + points + ' points in total, which is ' + pence + ' pence = ' + pounds + ' pounds!<br><br>'
-            + 'With your initial endowment, you won a total bonus of ' + (parseFloat(pence) + 250) + ' pence = ' + (parseFloat(pounds) + 2.5) + ' pounds!<br><br>' +
+            + 'With your initial endowment, you won a total bonus of ' + (parseFloat(pence) + 200) + ' pence = ' + (parseFloat(pounds) + 2.5) + ' pounds!<br><br>' +
             'Thank you for playing!<br><br><a href="' + this.exp.compLink + '">Please click the link to complete this study</a><br></h3><br>';
 
         $('#TextBoxDiv').html(Title);

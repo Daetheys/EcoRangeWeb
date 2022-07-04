@@ -122,13 +122,13 @@ export class GUI {
 
     static panelInsertTextBox({
                                 classname = 'card-center',
-                                cols = 90,
+                                cols = 30,
                                 rows = 5,
                                 name = "textbox_id",
                                 div = "card-content",
     } = {}) {
 	$('#' + div).append(
-	    '<textarea id="'+name+'" name="'+name+'" cols="'+cols.toString()+'" rows="'+rows.toString()+'"></textarea>');
+	    '<div><textarea id="'+name+'" name="'+name+'cols="'+cols.toString()+'" rows="'+rows.toString()+'"></textarea></div>');
     }
 
     static panelInsertCheckBox({
