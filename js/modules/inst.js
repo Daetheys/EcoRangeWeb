@@ -208,7 +208,7 @@ export class Instructions {
             1: ' • In addition of the fixed compensation provided by Prolific, you can double this endowment depending on your choices in the experiment task. \n\n'
                 + ' • Following experimental economics methodological standards, no deception is involved concerning the calculation of the final payoff.\n\n',
 	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are more advantageous than others.',
-	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set end and a new one began.',
+	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set ends and a new one begins.',
 	    4: 'Here is an short example:',
 	    5: 'Click 1',
 	    6: 'Click 2',
