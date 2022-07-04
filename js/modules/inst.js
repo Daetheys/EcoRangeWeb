@@ -215,7 +215,7 @@ export class Instructions {
 	    7: 'Click 3',
 	    8: 'Click 4',
 	    9: 'Click 5 - Note that you can click on the same button several times',
-	    10: "In the end I have collected 251 points in 5 clicks. This is worth 20 bonus pences approximately.",
+	    10: "In the end I have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
 	    11: "Now it's your turn"
         };
 

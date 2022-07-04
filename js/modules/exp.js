@@ -59,7 +59,7 @@ export class ExperimentParameters {
         //this._loadImg(imgPath, nCond, nSession);
         //this._initTrialObj(nCond, nSession);
 
-	this.maxPoints = 2500
+	this.maxPoints = 25000
 
         // define compensation functions
         // ===================================================================== //
