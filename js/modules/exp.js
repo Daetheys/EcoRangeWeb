@@ -70,7 +70,7 @@ export class ExperimentParameters {
 
     }
 
-    _initRewards(nSeasons,nTrialsPerSeason,nArms) {
+    async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
 	let data = await $.getJSON("py/ranges.json",function (json) {
 	    return;
 	});
