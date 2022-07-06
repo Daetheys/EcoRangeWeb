@@ -114,7 +114,7 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
 if __name__ == '__main__':
     import json
     sols = {}
-    for i in range(2000):
+    for i in range(1000):
         print(i)
         out = generate_range()
 

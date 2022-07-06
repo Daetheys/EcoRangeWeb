@@ -75,15 +75,18 @@ export class ExperimentParameters {
 	    return;
 	});
 
-	var index = localStorage.getItem('count');
+	var index = localStorage.getItem('ecorange_index');
 	if (index==null)
 	    index = -1;
 	index++;
 	console.log(index);
-	localStorage.setItem('count',index);
+	localStorage.setItem('ecorange_index',index);
+
+	var nb_keys = Object.keys(data).length
+
 	
-	this.minRange = data[index]['min'];
-	this.maxRange = data[index]['max'];
+	this.minRange = data[index%nb_keys]['min'];
+	this.maxRange = data[index%nb_keys]['max'];
 
 	this.envId = index;
 	
