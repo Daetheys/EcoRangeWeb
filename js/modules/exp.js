@@ -70,19 +70,17 @@ export class ExperimentParameters {
 
     }
 
-    async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
+    _initRewards(nSeasons,nTrialsPerSeason,nArms) {
 	let data = await $.getJSON("py/ranges.json",function (json) {
-	    //var index = Math.trunc(Math.random()*Object.keys(json).length);
-	    var index = localStorage.getItem('count');
-	    if (index==null)
-		index = -1;
-	    index++;
-	    localStorage.setItem('count',index);
-	    console.log(index);
-	    return json[index.toString()];
+	    return;
 	});
 
-	var index = Math.trunc(Math.random()*Object.keys(data).length).toString();
+	var index = localStorage.getItem('count');
+	if (index==null)
+	    index = -1;
+	index++;
+	console.log(index);
+	localStorage.setItem('count',index);
 	
 	this.minRange = data[index]['min'];
 	this.maxRange = data[index]['max'];
