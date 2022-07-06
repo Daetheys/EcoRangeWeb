@@ -41,7 +41,7 @@ function main() {
             maxCompensation: 200, // in pence (in addition of the initial endowment)
             feedbackDuration: 1000, // how many milliseconds we present the outcome
             beforeFeedbackDuration: 0, // how many milliseconds before the outcome
-            nSeasons: 30,
+            nSeasons: 1,
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
@@ -49,6 +49,10 @@ function main() {
                                                                                 // will be displayed at the end
         }
     );
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    exp.subID = urlParams.get('prolific_id')
     
     // Run experiment!!
     stateMachine({instructionNum, sessionNum, seasonNum, exp});
@@ -73,7 +77,7 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
                 // what will be executed next
                 stateMachine,
                 {
-                    instructionNum: 1, exp: exp, sessionNum: sessionNum, seasonNum: 0
+                    instructionNum: 2, exp: exp, sessionNum: sessionNum, seasonNum: 0
                 }
             );
             return;
@@ -206,10 +210,8 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
         seasonNum: seasonNum+1,
         exp: exp,
     }
-    console.log(seasonNum,exp['nSeasons']);
     if (seasonNum==exp['nSeasons']-1){
 	nextParams['instructionNum'] = 7;
-	console.log('end');
     }
 
     choice = new ChoiceManager(

@@ -36,7 +36,6 @@ export class Instructions {
 
 	GUI.panelFlush();
 	GUI.panelFadeIn();
-	console.log('nextBlock');
         GUI.panelSetTitle('New Block');
         GUI.panelInsertParagraph('Click to move the next block with new options.');
         GUI.panelInsertButton({
@@ -264,6 +263,7 @@ export class Instructions {
                                 exp: event.data.obj.exp.expName,
 				conversionRate: event.data.obj.exp.conversionRate,
                                 browser: event.data.obj.exp.browsInfo,
+				envid: event.data.obj.exp.envId,
 				minRews: event.data.obj.exp.minRange.toString(),
 				maxRews: event.data.obj.exp.maxRange.toString(),
 				nSeasons: event.data.obj.exp.nSeasons,
@@ -684,8 +684,6 @@ export class Instructions {
             clickFunc: function () {
 		GUI.panelFadeOut();
 		if (nextParams.exp.online){
-		    console.log($('#textbox_id').val());
-		    console.log(typeof $('#textbox_id').val());
 		    sendToDB(0,
                              {
 				 expID: nextParams.exp.expID,
@@ -714,7 +712,7 @@ export class Instructions {
 
         let Title = '<h3 align = "center">The game is over!<br>' +
             'You won ' + points + ' points in total, which is ' + pence + ' pence = ' + pounds + ' pounds!<br><br>'
-            + 'With your initial endowment, you won a total bonus of ' + (parseFloat(pence) + 200) + ' pence = ' + (parseFloat(pounds) + 2.5) + ' pounds!<br><br>' +
+            + 'With your initial endowment, you won a total bonus of ' + (parseFloat(pence) + 200).toFixed(2) + ' pence = ' + (parseFloat(pounds) + 2.0).toFixed(2) + ' pounds!<br><br>' +
             'Thank you for playing!<br><br><a href="' + this.exp.compLink + '">Please click the link to complete this study</a><br></h3><br>';
 
         $('#TextBoxDiv').html(Title);

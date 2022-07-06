@@ -2,10 +2,15 @@ from z3 import *
 import numpy as np
 import json
 
-print({'a':5,'b':7})
+set_option('smt.arith.random_initial_value', True)
+set_option('auto_config', False)
+set_option('smt.phase_selection', 5)
+set_option('smt.random_seed', 1)
 
-def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regularity=range(2,4),sum_val=2500,chokerange=2):
+def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regularity=range(3,5),sum_val=2500,chokerange=2):
 
+    set_option('smt.random_seed', np.random.randint(0,10**4))
+    
     s = Solver()
 
     #Define vars
@@ -105,15 +110,11 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
     print('unsat')
     return {"min":None,"max":None,"points":None}
 
-<<<<<<< HEAD
-#print(json.dumps(generate_range()))
-
-=======
 
 if __name__ == '__main__':
     import json
     sols = {}
-    for i in range(100):
+    for i in range(2000):
         print(i)
         out = generate_range()
 
@@ -128,15 +129,13 @@ if __name__ == '__main__':
         miniR,maxiR,points = sols[str(i)]['min'],sols[str(i)]['max'],sols[str(i)]['points']
         if miniR:
             plt.subplot(5,5,i+1)
-            print(miniR)
+            print(np.sum(maxiR))
             plt.plot(range(30),miniR,label='minR',marker='.')
             plt.plot(range(30),maxiR,label='maxR',marker='.')
     plt.legend()
 
     plt.show()
     
-
->>>>>>> 2f7d890ae8ae1f9349bdcbd9636c6ac2a64088f5
 if __name__ == '__main__' and False:
     import matplotlib.pyplot as plt
     sols = []

@@ -72,8 +72,12 @@ export class ExperimentParameters {
 
     async _initRewards(nSeasons,nTrialsPerSeason,nArms) {
 	let data = await $.getJSON("py/ranges.json",function (json) {
-	    var index = Math.trunc(Math.random()*Object.keys(json).length);
-	    console.log(json);
+	    //var index = Math.trunc(Math.random()*Object.keys(json).length);
+	    var index = localStorage.getItem('count');
+	    if (index==null)
+		index = -1;
+	    index++;
+	    localStorage.setItem('count',index);
 	    console.log(index);
 	    return json[index.toString()];
 	});
@@ -83,8 +87,7 @@ export class ExperimentParameters {
 	this.minRange = data[index]['min'];
 	this.maxRange = data[index]['max'];
 
-	console.log(this.minRange);
-	console.log(this.maxRange);
+	this.envId = index;
 	
 	this.rewards = [];
 	var range;
@@ -96,7 +99,6 @@ export class ExperimentParameters {
 	    }
 	    //this.rewards[i].shift();
 	}
-	console.log(this.rewards);
     }
     
 
@@ -195,12 +197,6 @@ export class ExperimentParameters {
 	this.minRange = minRange;
 	this.maxRange = maxRange;
 	this.rewards = rewards;
-	console.debug(minRange);
-	console.debug(maxRange);
-	console.debug(rewards);
-	console.debug(nSeasons);
-	console.debug(nArms);
-	console.debug(nTrialsPerSeason);
 
     }
 
