@@ -174,7 +174,7 @@ export class ChoiceManager {
             GUI.hideOptions();
             setTimeout(function (event) {
                 event.obj.run();
-            }, 500, {obj: this});
+            }, 200, {obj: this});
         } else {
             GUI.hideSkipButton();
             $('#TextBoxDiv').fadeOut(500);

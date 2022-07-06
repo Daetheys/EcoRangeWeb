@@ -15,7 +15,7 @@ $NTRIALSPERSEASON = stripslashes(htmlspecialchars($_POST['nTrialsPerSeason']));
 $NARMS = stripslashes(htmlspecialchars($_POST['nArms']));
 
 $stmt = $db->prepare("INSERT INTO nicolas_ecorange_exp VALUE(?,?,?,?,?,?,?,?,?,?,NOW())");
-$stmt->bind_param("ssssdssiii",$EXPID,$ID,$EXP,$BROW,$ENVID, $CONV,$MINREWS,$MAXREWS,$NSEASONS,$NTRIALSPERSEASON,$NARMS);
+$stmt->bind_param("sssssdssiii",$EXPID,$ID,$EXP,$BROW,$ENVID, $CONV,$MINREWS,$MAXREWS,$NSEASONS,$NTRIALSPERSEASON,$NARMS);
 $stmt->execute();
 $err = $stmt->errno ;
 $data = array(
