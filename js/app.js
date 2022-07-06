@@ -211,7 +211,7 @@ function stateMachine({instructionNum, sessionNum, seasonNum, exp} = {}) {
         exp: exp,
     }
     if (seasonNum==exp['nSeasons']-1){
-	nextParams['instructionNum'] = 7;
+	nextParams['instructionNum'] = 8;
     }
 
     choice = new ChoiceManager(
