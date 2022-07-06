@@ -83,7 +83,7 @@ export class ChoiceManager {
         let clickEnabled = true;
 
 	for (let i=0; i<20; i++){
-	    //$('#td'+i.toString())[0].style.backgroundColor = this.color;
+	    $('#td'+i.toString())[0].style.backgroundColor = this.color;
             $('#td'+i.toString()).click({obj: this}, function (event) {
 		if (!clickEnabled)
                     return;
