@@ -2,7 +2,7 @@
 
 include 'connectDB.php';
 
-$maxi = 80;
+$maxi = 0;
 $val = 0;
 $query= $db->query("SELECT ENVID FROM nicolas_ecorange_exp");
 while($data = $query->fetch_row()){

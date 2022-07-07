@@ -75,8 +75,6 @@ export class ExperimentParameters {
 	    return;
 	});
 
-	var fs = require('fs');
-
 	var index = await $.ajax({
 	    type: 'POST',
 	    async: true,
@@ -88,15 +86,10 @@ export class ExperimentParameters {
 	    index = -1;
 	index++;
 	console.log(index);
-	fs.writeFile('count.txt',index.toString(),err => {
-	    if (err){
-		console.error(err);
-		return;
-	    }
-	})
 
 	var nb_keys = Object.keys(data).length
 
+	console.log(nb_keys);
 	
 	this.minRange = data[index%nb_keys]['min'];
 	this.maxRange = data[index%nb_keys]['max'];
