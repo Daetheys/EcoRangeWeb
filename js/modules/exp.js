@@ -77,8 +77,14 @@ export class ExperimentParameters {
 
 	var fs = require('fs');
 
-	var index = parseInt(fs.readFileSync('count.txt','utf-8'));
-	if (index==null)
+	var index = await $.ajax({
+	    type: 'POST',
+	    async: true,
+	    url: 'php/GetIndex.php',
+	    success: function (r) {return r;},
+	    error: function (r) {console.log('error getting index');}
+	})
+	if (index == null)
 	    index = -1;
 	index++;
 	console.log(index);
