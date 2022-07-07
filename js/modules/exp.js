@@ -75,12 +75,19 @@ export class ExperimentParameters {
 	    return;
 	});
 
-	var index = localStorage.getItem('ecorange_index');
+	var fs = require('fs');
+
+	var index = parseInt(fs.readFileSync('count.txt','utf-8'));
 	if (index==null)
 	    index = -1;
 	index++;
 	console.log(index);
-	localStorage.setItem('ecorange_index',index);
+	fs.writeFile('count.txt',index.toString(),err => {
+	    if (err){
+		console.error(err);
+		return;
+	    }
+	})
 
 	var nb_keys = Object.keys(data).length
 
