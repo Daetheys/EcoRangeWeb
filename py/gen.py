@@ -114,12 +114,13 @@ def generate_range(jump_size_max=range(40,50),jump_size_min=range(20,30),regular
 if __name__ == '__main__':
     import json
     sols = {}
-    for i in range(1000):
+    nb = 2000
+    for i in range(nb):
         print(i)
         out = generate_range()
 
         sols[str(i)] = out
-    with open('ranges.json','w') as f:
+    with open('ranges'+str(nb)+'.json','w') as f:
         json.dump(sols,f)
 
     import matplotlib.pyplot as plt
