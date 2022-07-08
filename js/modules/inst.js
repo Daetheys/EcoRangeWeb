@@ -37,7 +37,7 @@ export class Instructions {
 	GUI.panelFlush();
 	GUI.panelFadeIn();
         GUI.panelSetTitle('New Block');
-        GUI.panelInsertParagraph('Click to move the next block with new options.');
+        GUI.panelInsertParagraph('Click to move to the next block with new options.');
         GUI.panelInsertButton({
             id: 'nextBlock', value: 'Next',
             clickFunc: function () {
@@ -214,8 +214,8 @@ export class Instructions {
 	    7: 'Click 3',
 	    8: 'Click 4',
 	    9: 'Click 5 - Note that you can click on the same button several times',
-	    10: "In the end I have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
-	    11: "Now it's your turn"
+	    10: "In this example, we have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
+	    11: "Now it's your turn."
         };
 
         GUI.panelSetParagraph(text[pageNum]);
