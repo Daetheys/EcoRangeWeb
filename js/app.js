@@ -16,7 +16,6 @@ async function getCode() {
 	    success: function (r) {return r;},
 	    error: function (r) {console.log('error getting code');}
 	})
-    console.log(code);
     return code;
 }
 
