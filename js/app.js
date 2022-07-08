@@ -8,6 +8,14 @@ import {sendToDB} from "./modules/request.js"
 // When the page is fully loaded, the main function will be called
 $(document).ready(main);
 
+async function getCode() {
+    var code = await $.getJSON("code.json",function (json) {
+	    return;
+    });
+    console.log(code['code']);
+    return code;
+}
+
 
 function main() {
     /*
@@ -32,6 +40,8 @@ function main() {
     let seasonNum = 0;
     let instructionNum = 0;//'end';
 
+    var code = getCode();
+
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
         {
@@ -45,14 +55,14 @@ function main() {
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
-            compLink: 'https://app.prolific.co' // prolific completion link
+            compLink: code['code'] // prolific completion link
                                                                                 // will be displayed at the end
         }
     );
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    exp.subID = urlParams.get('prolific_id')
+    exp.subID = urlParams.get('PROLIFIC_PID')
     
     // Run experiment!!
     stateMachine({instructionNum, sessionNum, seasonNum, exp});

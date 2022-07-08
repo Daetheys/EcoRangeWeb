@@ -75,8 +75,6 @@ export class ExperimentParameters {
 	    return;
 	});
 
-	var fs = require('fs');
-
 	var index = await $.ajax({
 	    type: 'POST',
 	    async: true,
@@ -88,12 +86,6 @@ export class ExperimentParameters {
 	    index = -1;
 	index++;
 	console.log(index);
-	fs.writeFile('count.txt',index.toString(),err => {
-	    if (err){
-		console.error(err);
-		return;
-	    }
-	})
 
 	var nb_keys = Object.keys(data).length
 
