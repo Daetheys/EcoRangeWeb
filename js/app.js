@@ -9,10 +9,14 @@ import {sendToDB} from "./modules/request.js"
 $(document).ready(main);
 
 async function getCode() {
-    var code = await $.getJSON("code.json",function (json) {
-	    return;
-    });
-    console.log(code['code']);
+    var code = await $.ajax({
+	    type: 'POST',
+	    async: true,
+	    url: 'php/code.php',
+	    success: function (r) {return r;},
+	    error: function (r) {console.log('error getting code');}
+	})
+    console.log(code);
     return code;
 }
 
