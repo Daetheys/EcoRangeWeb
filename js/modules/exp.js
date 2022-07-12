@@ -1,5 +1,5 @@
 import {range, shuffle, getOS, getBrowser, createCode} from './utils.js';
-import {sendToDB} from "./modules/request.js"
+import {sendToDB} from "./request.js"
 
 
 export class ExperimentParameters {
