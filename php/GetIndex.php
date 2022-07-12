@@ -2,18 +2,19 @@
 
 include 'connectDB.php';
 
-$maxi = 0;
-$val = 0;
-$query= $db->query("SELECT ENVID FROM nicolas_ecorange_exp");
-while($data = $query->fetch_row()){
-    $val = (int)$data[0];
-    if ($val > $maxi){
-       $maxi = $val;
-    }
+$maxint = stripslashes(htmlspecialchars($_POST['maxInt']));
+$maxit = 5;
+
+for ($i=0; $i<$maxit; $i++){
+    $index = rand(0,$maxint);
+    $query= $db->query("SELECT ENVID FROM nicolas_ecorange_exp WHERE ENVID=" . strval($index));
+    if($query->fetch_row())
+    	continue;
+    break;
 }
 
 $db->close();
 
-echo json_encode($maxi);
+echo json_encode($index);
 
 ?>

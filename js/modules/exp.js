@@ -75,9 +75,12 @@ export class ExperimentParameters {
 	    return;
 	});
 
+	var nb_keys = Object.keys(data).length;
+
 	var index = await $.ajax({
 	    type: 'POST',
 	    async: true,
+	    data: {"maxInt":nb_keys},
 	    url: 'php/GetIndex.php',
 	    success: function (r) {return r;},
 	    error: function (r) {console.log('error getting index');}
@@ -87,7 +90,7 @@ export class ExperimentParameters {
 	index++;
 	console.log(index);
 
-	var nb_keys = Object.keys(data).length
+	this.maxIndex = nb_keys;
 
 	console.log(nb_keys);
 	

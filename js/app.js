@@ -10,9 +10,9 @@ $(document).ready(main);
 
 async function getCode(exp) {
     var code = $.ajax({
-	    type: 'POST',
-	    async: true,
-	    url: 'php/code.php',
+	type: 'POST',
+	async: true,
+	url: 'php/code.php',
 	success: function (r) {
 	    exp.compLink= r;},
 	    error: function (r) {console.log('Error getting code. Please send a message to the researcher if you see this message.');}
@@ -57,8 +57,7 @@ function main() {
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
-            compLink: '' // prolific completion link
-                                                                                // will be displayed at the end
+            compLink: '' // prolific completion link                                                   // will be displayed at the end
         }
     );
 
@@ -67,6 +66,25 @@ function main() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     exp.subID = urlParams.get('PROLIFIC_PID')
+
+    if (exp.online) {
+        sendToDB(0,
+                 {
+                    expID: exp.expID,
+                    id: exp.subID,
+                    exp: exp.expName,
+		            conversionRate: exp.conversionRate,
+                    browser: exp.browsInfo,
+		            envid: exp.envId,
+		            minRews: exp.minRange.toString(),
+		            maxRews: exp.maxRange.toString(),
+                    nSeasons: exp.nSeasons,
+		            nTrialsPerSeason: exp.nTrialsPerSeason,
+		            nArms: exp.nArms
+                 },
+                 'php/InsertExpDetails.php'
+                );
+    }
     
     // Run experiment!!
     stateMachine({instructionNum, sessionNum, seasonNum, exp});
