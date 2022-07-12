@@ -60,25 +60,6 @@ export class ExperimentParameters {
         //this._loadImg(imgPath, nCond, nSession);
         //this._initTrialObj(nCond, nSession);
 
-        if (this.online) {
-            sendToDB(0,
-                     {
-                        expID: this.expID,
-                        id: this.subID,
-                        exp: this.expName,
-                        conversionRate: this.conversionRate,
-                        browser: this.browsInfo,
-                        envid: this.envId,
-                        minRews: this.minRange.toString(),
-                        maxRews: this.maxRange.toString(),
-                        nSeasons: this.nSeasons,
-                        nTrialsPerSeason: this.nTrialsPerSeason,
-                        nArms: this.nArms
-                     },
-                     'php/InsertExpDetails.php'
-                    );
-        }
-
 	this.maxPoints = 25000
 
         // define compensation functions
@@ -129,6 +110,26 @@ export class ExperimentParameters {
 	    }
 	    //this.rewards[i].shift();
 	}
+
+    if (this.online) {
+        sendToDB(0,
+                 {
+                    expID: this.expID,
+                    id: this.subID,
+                    exp: this.expName,
+                    conversionRate: this.conversionRate,
+                    browser: this.browsInfo,
+                    envid: this.envId,
+                    minRews: this.minRange.toString(),
+                    maxRews: this.maxRange.toString(),
+                    nSeasons: this.nSeasons,
+                    nTrialsPerSeason: this.nTrialsPerSeason,
+                    nArms: this.nArms
+                 },
+                 'php/InsertExpDetails.php'
+                );
+    }
+
     }
     
 
