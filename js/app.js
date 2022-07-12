@@ -8,9 +8,10 @@ import {sendToDB} from "./modules/request.js"
 // When the page is fully loaded, the main function will be called
 $(document).ready(main);
 
-async function getCode() {
+async function getCode(maxInt) {
     var code = await $.ajax({
 	    type: 'POST',
+        data: {"maxInt":maxInt},
 	    async: true,
 	    url: 'php/code.php',
 	    success: function (r) {return r;},
@@ -55,9 +56,9 @@ function main() {
             feedbackDuration: 1000, // how many milliseconds we present the outcome
             beforeFeedbackDuration: 0, // how many milliseconds before the outcome
             nSeasons: 30,
-	    nTrialsPerSeason: 10,
-	    nArms: 20,
-	    imgPath: 'images/cards_gif/',
+	        nTrialsPerSeason: 10,
+	        nArms: 20,
+	        imgPath: 'images/cards_gif/',
             compLink: code['code'] // prolific completion link
                                                                                 // will be displayed at the end
         }
@@ -67,19 +68,20 @@ function main() {
     const urlParams = new URLSearchParams(queryString);
     exp.subID = urlParams.get('PROLIFIC_PID')
 
-    if (event.data.obj.exp.online) {
+    if (exp.online) {
         sendToDB(0,
                  {
-                     expID: exp.expID,
-                     id: exp.subID,
-                     exp: exp.expName,
-		     conversionRate: exp.conversionRate,
-                     browser: exp.browsInfo,
-		     envid: exp.envId,
-		     minRews: exp.minRange.toString(),
-		     maxRews: exp.maxRange.toSevent.data.obj.exp.nSeasons,
-		     nTrialsPerSeason: exp.nTrialsPerSeason,
-		     nArms: exp.nArms
+                    expID: exp.expID,
+                    id: exp.subID,
+                    exp: exp.expName,
+		            conversionRate: exp.conversionRate,
+                    browser: exp.browsInfo,
+		            envid: exp.envId,
+		            minRews: exp.minRange.toString(),
+		            maxRews: exp.maxRange.toString(),
+                    nSeasons: exp.nSeasons,
+		            nTrialsPerSeason: exp.nTrialsPerSeason,
+		            nArms: exp.nArms
                  },
                  'php/InsertExpDetails.php'
                 );
