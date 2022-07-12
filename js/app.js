@@ -8,13 +8,14 @@ import {sendToDB} from "./modules/request.js"
 // When the page is fully loaded, the main function will be called
 $(document).ready(main);
 
-async function getCode() {
-    var code = await $.ajax({
+async function getCode(exp) {
+    var code = $.ajax({
 	    type: 'POST',
 	    async: true,
 	    url: 'php/code.php',
-	    success: function (r) {return r;},
-	    error: function (r) {console.log('error getting code');}
+	success: function (r) {
+	    exp.compLink= r;},
+	    error: function (r) {console.log('Error getting code. Please send a message to the researcher if you see this message.');}
 	})
     return code;
 }
@@ -42,9 +43,7 @@ function main() {
     let sessionNum = 1;
     let seasonNum = 0;
     let instructionNum = 0;//'end';
-
-    var code = getCode();
-
+    
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
         {
@@ -58,10 +57,12 @@ function main() {
 	    nTrialsPerSeason: 10,
 	    nArms: 20,
 	    imgPath: 'images/cards_gif/',
-            compLink: code['code'] // prolific completion link
+            compLink: '' // prolific completion link
                                                                                 // will be displayed at the end
         }
     );
+
+    getCode(exp);
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
