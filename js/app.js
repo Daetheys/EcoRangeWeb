@@ -66,6 +66,24 @@ function main() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     exp.subID = urlParams.get('PROLIFIC_PID')
+
+    if (event.data.obj.exp.online) {
+        sendToDB(0,
+                 {
+                     expID: exp.expID,
+                     id: exp.subID,
+                     exp: exp.expName,
+		     conversionRate: exp.conversionRate,
+                     browser: exp.browsInfo,
+		     envid: exp.envId,
+		     minRews: exp.minRange.toString(),
+		     maxRews: exp.maxRange.toSevent.data.obj.exp.nSeasons,
+		     nTrialsPerSeason: exp.nTrialsPerSeason,
+		     nArms: exp.nArms
+                 },
+                 'php/InsertExpDetails.php'
+                );
+    }
     
     // Run experiment!!
     stateMachine({instructionNum, sessionNum, seasonNum, exp});
