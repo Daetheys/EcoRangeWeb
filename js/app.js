@@ -3,7 +3,7 @@ import {Instructions} from "./modules/inst.js";
 import {Questionnaire} from "./modules/quest.js";
 import {ChoiceManager, SliderManager} from "./modules/trial_manager.js";
 import {sendToDB} from "./modules/request.js"
-import {GUI} from './gui.js'
+import {GUI} from './modules/gui.js'
 
 
 // When the page is fully loaded, the main function will be called
