@@ -190,10 +190,10 @@ export class GUI {
     static displayOptionSlider(id, imgObj, initValue) {
 
         GUI.showElement('TextBoxDiv');
-        let option = imgObj[id];
-        option.id = "option1";
-        option = option.outerHTML;
-
+        //let option = imgObj[id];
+        //option.id = "option1";
+        //option = option.outerHTML;
+        var option = "";
         let canvas1 = '<canvas id="canvas1" height="620"' +
             ' width="620" class="img-responsive center-block"' +
             ' style="border: 5px solid transparent; position: relative; top: 0px;">';
@@ -207,12 +207,12 @@ export class GUI {
             + canvas1 + '</div><div id = "Middle" class="col-xs-4 col-md-4"></div><div class="col-xs-3 col-md-3">'
             + '</div><div class="col-xs-1 col-md-1"></div></div>';
 
-        let Title = '<h4 align = "center" style="margin-bottom: 2%;">What are the odds this symbol gives a +1?</h4>';
+        let Title = '<h2 align = "center" style="margin-bottom: 2%;">How satisfied are you from the last reward you got ?</h2>';
         let Images = '<div id = "stimrow" style="transform: translate(0%, -100%);position:relative;"> ' +
             '<div class="col-xs-1 col-md-1"></div>  <div class="col-xs-3 col-md-3">'
             + '</div><div id = "Middle" class="col-xs-4 col-md-4">' + option + '</div></div>';
 
-        let Slider = GUI.generateSlider({min: 0, max: 100, step: 5, initValue: initValue});
+        let Slider = GUI.generateSlider({min: 0, max: 100, step: 1, initValue: initValue});
 
         let str = Title + Images + myCanvas + Slider;
         $('#TextBoxDiv').html(str);

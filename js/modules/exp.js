@@ -11,6 +11,7 @@ export class ExperimentParameters {
      ***/
 
     constructor({
+        satisfaction_feedbacks,
         online,
         isTesting,
 	expName,
@@ -36,6 +37,7 @@ export class ExperimentParameters {
 	this.nSeasons = nSeasons
 	this.nTrialsPerSeason = nTrialsPerSeason
 	this.nArms = nArms
+    this.satisfaction_feedbacks = satisfaction_feedbacks;
 
 
         this.rewardsPerSeason = Array(nArms).fill(0)
@@ -77,15 +79,16 @@ export class ExperimentParameters {
 	});
 
 	var nb_keys = Object.keys(data).length;
-
-	var index = await $.ajax({
+    console.log('before');
+	var index = 0/*await $.ajax({
 	    type: 'POST',
 	    async: true,
 	    data: {"maxInt":nb_keys},
 	    url: 'php/GetIndex.php',
 	    success: function (r) {return r;},
 	    error: function (r) {console.log('error getting index');}
-	})
+	})*/
+    console.log('after');
 	if (index == null)
 	    index = -1;
 	index++;

@@ -43,10 +43,12 @@ function main() {
     let sessionNum = 1;
     let seasonNum = 0;
     let instructionNum = 0;//'end';
+    let satisfaction_feedbacks = false;
     
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
         {
+            satisfaction_feedbacks:satisfaction_feedbacks,
             online: true,   // send network requests
             isTesting: false, // isTesting==in development vs in production
             expName: 'EcologicalRange', // experience name

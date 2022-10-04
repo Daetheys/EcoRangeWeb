@@ -53,7 +53,6 @@ export class ChoiceManager {
 	
 	this.ranks = Array.from(Array(this.exp['nArms']).keys());
 	shuffleArray(this.ranks);
-
 	this.rewards = [];
 	for (let i=0;i<this.ranks.length;i++){
 	    this.rewards.push(this.exp.rewards[this.seasonNum][this.ranks[i]]);
@@ -81,6 +80,8 @@ export class ChoiceManager {
         GUI.displayOptions(params);
 
         let clickEnabled = true;
+
+        this.feedbacks = {0:true,9:true};
 
 	for (let i=0; i<20; i++){
 	    $('#td'+i.toString())[0].style.backgroundColor = this.color;
@@ -169,6 +170,20 @@ export class ChoiceManager {
             }, 500, {obj: this});
             return;
         }
+        
+        //Next trial
+        //Put satisfaction slider
+        console.log(this.trialNum,this.feedbacks);
+        if (this.feedbacks[this.trialNum] && this.exp.satisfaction_feedbacks){
+            this.feedbacks[this.trialNum] = false;
+            console.log(this);
+            console.log(this.next);
+            var slider = new SliderManager({
+                exp: this.exp,
+                cm: this});
+            slider.run();
+            return;
+        }
         this.trialNum++;
         if (this.trialNum < this.nTrial) {
             GUI.hideOptions();
@@ -200,18 +215,16 @@ export class SliderManager {
 
     constructor({
                     exp,
-                    trialObj,
-                    imgObj,
-                    sessionNum,
-                    phaseNum,
-                    feedbackDuration,
-                    elicitationType,
-                    nextFunc,
-                    nextParams
+                    cm,
                 } = {}) {
         // members
         this.exp = exp;
-        this.trialObj = trialObj;
+        this.nTrial = 1;
+        this.trialNum = 0;
+        this.cm = cm;
+        console.log(this.exp);
+        console.log(this.nextFunc);
+        /*this.trialObj = trialObj;
         this.nTrial = trialObj.length;
 
         this.sessionNum = sessionNum;
@@ -235,7 +248,7 @@ export class SliderManager {
             this._isTesting();
         }
         this.skip = undefined;
-        this.skipEnabled = true;
+        this.skipEnabled = true;*/
     }
 
     /* =================== public methods ================== */
@@ -244,36 +257,28 @@ export class SliderManager {
 
         GUI.initGameStageDiv();
 
-        this.skipEnabled = true;
+        /*this.skipEnabled = true;
 
-        let trialObj = this.trialObj[this.trialNum];
+        let trialObj = this.trialObj[this.trialNum];*/
 
         let presentationTime = (new Date()).getTime();
 
-        let params = {
-            stimIdx: trialObj[0],
-            contIdx: trialObj[1],
-            p1: trialObj[2],
-            ev1: trialObj[3],
-            r1: trialObj[4],
-            isCatchTrial: trialObj[5],
-            option1Type: trialObj[6],
-            option2Type: trialObj[7],
-            presentationTime: presentationTime
-        };
 
-
-        let initValue = range(25, 75, 5)[Math.floor(Math.random() * 10)];
+        let initValue = Math.floor(Math.random() * 100);
         let clickEnabled = true;
 
-        let slider = GUI.displayOptionSlider(params['stimIdx'], this.imgObj, initValue);
+        let params = {
+            initValue:initValue
+        };
+
+        let slider = GUI.displayOptionSlider(undefined,undefined,initValue);//params['stimIdx'], this.imgObj, 50);
 
         GUI.listenOnSlider({obj: this, slider: slider}, function (event) {
             if (clickEnabled) {
                 clickEnabled = false;
                 event.data.obj.skipEnabled = false;
                 let choice = slider.value;
-                event.data.obj._clickEvent(choice, params);
+                event.data.obj._clickEvent(choice, initValue, params);
             }
         });
 
@@ -284,11 +289,11 @@ export class SliderManager {
         GUI.insertSkipButton(this, this.nTrial, this.trialNum);
     }
 
-    _clickEvent(choice, params) {
+    _clickEvent(choice, initv, params) {
 
         let choiceTime = (new Date()).getTime();
         let reactionTime = choiceTime - params["presentationTime"];
-        let invertedPosition = this.invertedPosition[this.trialNum];
+        /*let invertedPosition = this.invertedPosition[this.trialNum];
         let ev1 = params["ev1"];
         let p1 = params["p1"][1];
         let contIdx = params['contIdx'];
@@ -298,42 +303,23 @@ export class SliderManager {
 
         let [correctChoice, thisReward,
             otherReward, pLottery, elicDistance] = this._getReward(choice, params);
-
+        */
         if (this.exp.online) {
             sendToDB(0,
-                {
-                    exp: this.exp.expName,
-                    expID: this.exp.expID,
-                    id: this.exp.subID,
-                    test: +(this.exp.isTesting),
-                    trial: this.trialNum,
-                    elicitation_type: this.elicitationType,
-                    cont_idx_1: contIdx,
-                    cont_idx_2: -1,
-                    condition: -1,
-                    symL: stimIdx,
-                    symR: -1,
-                    choice: choice,
-                    correct_choice: correctChoice,
-                    outcome: thisReward,
-                    cf_outcome: otherReward,
-                    choice_left_right: -1,
-                    reaction_time: reactionTime,
-                    reward: this.exp.totalReward,
-                    session: this.sessionNum,
-                    p1: p1,
-                    p2: -1,
-                    option1: option1Type,
-                    option2: -1,
-                    ev1: Math.round(ev1 * 100) / 100,
-                    ev2: -1,
-                    iscatch: isCatchTrial,
-                    inverted: invertedPosition,
-                    choice_time: choiceTime - this.exp.initTime,
-                    elic_distance: elicDistance,
-                    p_lottery: pLottery
-                },
-                'php/InsertLearningDataDB.php'
+            {
+                exp: this.exp.expName,
+                expID: this.exp.expID,
+                id: this.exp.subID,
+                test: +(this.exp.isTesting),
+                season: this.seasonNum,
+                trial: this.trialNum,
+                value: choice,
+                initv: initv,
+                reaction_time: reactionTime,
+                session: this.sessionNum,
+                choice_time: choiceTime - this.exp.initTime,
+            },
+            'php/InsertSlider.php'
             );
         }
 
@@ -394,7 +380,8 @@ export class SliderManager {
                     setTimeout(function (event) {
                         $('#Stage').empty();
                         $('#Bottom').empty();
-                        event.obj.nextFunc(event.obj.nextParams);
+                        event.obj.cm.next();
+                        //event.obj.nextFunc(event.obj.nextParams);
                     }, 500, {obj: event.obj})
                 }, this.feedbackDuration, {obj: this}
             );
