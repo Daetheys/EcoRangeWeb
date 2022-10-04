@@ -3,6 +3,7 @@ import {Instructions} from "./modules/inst.js";
 import {Questionnaire} from "./modules/quest.js";
 import {ChoiceManager, SliderManager} from "./modules/trial_manager.js";
 import {sendToDB} from "./modules/request.js"
+import {GUI} from './gui.js'
 
 
 // When the page is fully loaded, the main function will be called
@@ -15,7 +16,7 @@ async function getCode(exp) {
 	url: 'php/code.php',
 	success: function (r) {
 	    exp.compLink= r;},
-	    error: function (r) {console.log('Error getting code. Please send a message to the researcher if you see this message.');}
+	    error: function (r) {GUI.displayModalWindow('Error getting the code for the validation of the task. Please send a message to the researcher if you see this message.');}
 	})
     return code;
 }
@@ -43,7 +44,7 @@ function main() {
     let sessionNum = 1;
     let seasonNum = 0;
     let instructionNum = 0;//'end';
-    let satisfaction_feedbacks = false;
+    let satisfaction_feedbacks = true;
     
     // instantiate experiment parameters
     let exp = new ExperimentParameters(
