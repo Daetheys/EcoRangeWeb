@@ -25,8 +25,6 @@ export function sendToDB(call, data, url) {
                     `Please check your internet connection.\n\n
                      If you are not online, the data is lost and we can\'t pay you. :(`, 'error');
             }
-
         }
-
     });
 }

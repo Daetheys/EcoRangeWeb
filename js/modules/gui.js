@@ -1,6 +1,15 @@
 import {createDiv, range, randint} from './utils.js'
 
 
+function onlyNumberKey(evt) {
+          
+    // Only ASCII character in that range allowed
+    var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+        return false;
+    return true;
+}
+
 export class GUI {
     /*
     Class to display graphic contents
@@ -207,7 +216,7 @@ export class GUI {
             + canvas1 + '</div><div id = "Middle" class="col-xs-4 col-md-4"></div><div class="col-xs-3 col-md-3">'
             + '</div><div class="col-xs-1 col-md-1"></div></div>';
 
-        let Title = '<h2 align = "center" style="margin-bottom: 2%;">How satisfied are you from the last reward you got ?</h2>';
+        let Title = '<h2 align = "center" style="margin-bottom: 2%;">How satisfied were you by the last reward you got ?</h2>';
         let Images = '<div id = "stimrow" style="transform: translate(0%, -100%);position:relative;"> ' +
             '<div class="col-xs-1 col-md-1"></div>  <div class="col-xs-3 col-md-3">'
             + '</div><div id = "Middle" class="col-xs-4 col-md-4">' + option + '</div></div>';
@@ -372,6 +381,9 @@ export class GUI {
         let slider = `<main>
             <form id="form_${n}">
             <div class="range">
+            <span class="leftlabel">Very unsatisfied</span>
+            <span class="middlelabel">Even</span>
+            <span class="rightlabel">Very satisfied</span>
             <input id="slider_${n}" name="range" type="range" value="${initValue}" min="${min}" max="${max}" step="${step}">
             <div class="range-output">
             <output id="output_${n}" class="output" name="output" for="range">
@@ -404,6 +416,38 @@ export class GUI {
 
         ok.click(clickArgs, clickFunc);
 
+    }
+
+    static displayTextInput(n=1){
+        GUI.showElement('TextBoxDiv');
+        let str1 = '<input id=input1 class=inputmin>';
+        let str2 = '<input id=input2 class=inputmin>';
+        let button = `<div align="center"><button id="ok_${n}" data-dismiss="modal" class="btn btn-default card-button">Submit</button></div>`;
+        let str = '<div class = textinputblock><span class=textinputtitle>Please estimate the range of the rewards in this block</span><div class=inputstack>'+str1 + '<span class=inputunion>-</span>' + str2+'</div></div>'+button;
+        $('#TextBoxDiv').html(str);
+
+        let inputmin = document.getElementById('input1');
+        inputmin.placeholder = 'MIN';
+        inputmin.minLength = 1;
+        inputmin.maxLength = 3;
+        inputmin.required = true;
+        inputmin.onkeypress = onlyNumberKey;
+
+        let inputmax = document.getElementById('input2');
+        inputmax.placeholder = 'MAX';
+        inputmax.minLength = 1;
+        inputmax.maxLength = 3;
+        inputmax.required = true;
+        inputmax.onkeypress = onlyNumberKey;
+        return {"textInput1":inputmin,"textInput2":inputmax}
+    }
+
+    static listenOnTextInput(args,func,n=1){
+        let inpMin = document.getElementById('input1');
+        let inpMax = document.getElementById('input2');
+        let ok = $('#ok_'+n);
+
+        ok.click(args,func);
     }
 
     static insertSkipButton(Obj) {

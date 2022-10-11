@@ -81,7 +81,8 @@ export class ChoiceManager {
 
         let clickEnabled = true;
 
-        this.feedbacks = {0:true,9:true};
+        this.sat_feedbacks = {0:true,9:true};
+        this.range_feedbacks = {9:true};
 
 	for (let i=0; i<20; i++){
 	    $('#td'+i.toString())[0].style.backgroundColor = this.color;
@@ -173,15 +174,21 @@ export class ChoiceManager {
         
         //Next trial
         //Put satisfaction slider
-        console.log(this.trialNum,this.feedbacks);
-        if (this.feedbacks[this.trialNum] && this.exp.satisfaction_feedbacks){
-            this.feedbacks[this.trialNum] = false;
-            console.log(this);
-            console.log(this.next);
+        if (this.sat_feedbacks[this.trialNum] && this.exp.satisfaction_feedbacks){
+            this.sat_feedbacks[this.trialNum] = false;
             var slider = new SliderManager({
                 exp: this.exp,
                 cm: this});
             slider.run();
+            return;
+        }
+        //Put range slider
+        if (this.range_feedbacks[this.trialNum] && this.exp.range_feedbacks){
+            this.range_feedbacks[this.trialNum] = false;
+            var rangem = new RangeManager({
+                exp: this.exp,
+                cm: this});
+            rangem.run();
             return;
         }
         this.trialNum++;
@@ -222,8 +229,6 @@ export class SliderManager {
         this.nTrial = 1;
         this.trialNum = 0;
         this.cm = cm;
-        console.log(this.exp);
-        console.log(this.nextFunc);
         /*this.trialObj = trialObj;
         this.nTrial = trialObj.length;
 
@@ -305,6 +310,7 @@ export class SliderManager {
             otherReward, pLottery, elicDistance] = this._getReward(choice, params);
         */
         if (this.exp.online) {
+            console.log(this.cm);
             sendToDB(0,
             {
                 exp: this.exp.expName,
@@ -320,6 +326,195 @@ export class SliderManager {
                 choice_time: choiceTime - this.exp.initTime,
             },
             'php/InsertSlider.php'
+            );
+        }
+
+        this.next();
+
+    }
+
+    _getReward(choice, params) {
+
+        let p1 = params["p1"];
+        let r1 = params["r1"];
+        let thisReward = undefined;
+
+        let pLottery = Math.random().toFixed(2);
+        if (pLottery < (choice / 100)) {
+            thisReward = r1[+(Math.random() < p1[1])];
+        } else {
+            thisReward = r1[+(Math.random() < pLottery)]
+        }
+        let otherReward = -1;
+
+        let correctChoice = +((choice / 100) === p1[1]);
+        let elicDistance = Math.abs(choice - p1[1] * 100);
+
+        this.exp.sumReward[this.phaseNum] += thisReward;
+
+        this.exp.totalReward += thisReward * !([-1, -2].includes(this.sessionNum));
+
+        return [correctChoice, thisReward, otherReward, pLottery, elicDistance]
+
+    };
+
+    next(nTrial = undefined) {
+        if (nTrial !== undefined) {
+            GUI.hideOptions();
+            this.trialNum = nTrial;
+            setTimeout(function (event) {
+                if (nTrial === event.obj.nTrial) {
+                    event.obj.next();
+                } else {
+                    event.obj.run();
+                }
+            }, 500, {obj: this});
+            return;
+        }
+        this.trialNum++;
+        if (this.trialNum < this.nTrial) {
+            setTimeout(function (event) {
+                GUI.hideOptions();
+                setTimeout(function (event) {
+                    event.obj.run();
+                }, 500, {obj: event.obj});
+            }, this.feedbackDuration, {obj: this});
+        } else {
+            GUI.hideSkipButton();
+            setTimeout(function (event) {
+                    $('#TextBoxDiv').fadeOut(500);
+                    setTimeout(function (event) {
+                        $('#Stage').empty();
+                        $('#Bottom').empty();
+                        event.obj.cm.next();
+                        //event.obj.nextFunc(event.obj.nextParams);
+                    }, 500, {obj: event.obj})
+                }, this.feedbackDuration, {obj: this}
+            );
+        }
+    };
+}
+
+export class RangeManager {
+
+    constructor({
+                    exp,
+                    cm,
+                } = {}) {
+        // members
+        this.exp = exp;
+        this.nTrial = 1;
+        this.trialNum = 0;
+        this.cm = cm;
+        /*this.trialObj = trialObj;
+        this.nTrial = trialObj.length;
+
+        this.sessionNum = sessionNum;
+        this.phaseNum = phaseNum;
+
+        this.imgObj = imgObj;
+        this.trialNum = 0;
+
+        this.invertedPosition = shuffle(
+            Array.from(Array(this.nTrial), x => randint(0, 1))
+        );
+
+        this.feedbackDuration = feedbackDuration;
+
+        this.elicitationType = elicitationType;
+
+        this.nextFunc = nextFunc;
+        this.nextParams = nextParams;
+
+        if (this.exp.isTesting) {
+            this._isTesting();
+        }
+        this.skip = undefined;
+        this.skipEnabled = true;*/
+    }
+
+    /* =================== public methods ================== */
+
+    run() {
+
+        GUI.initGameStageDiv();
+
+        /*this.skipEnabled = true;
+
+        let trialObj = this.trialObj[this.trialNum];*/
+
+        let presentationTime = (new Date()).getTime();
+
+
+        let initValue = Math.floor(Math.random() * 100);
+        let clickEnabled = true;
+
+        let params = {
+            initValue:initValue
+        };
+
+        let d = GUI.displayTextInput();
+        let textInput1 = d.textInput1;
+        let textInput2 = d.textInput2;
+
+        GUI.listenOnTextInput({obj: this, textInput1: textInput1, textInput2: textInput2}, function (event) {
+            if (clickEnabled) {
+                let choice = textInput1.value;
+                let choice2 = textInput2.value;
+                console.log(choice);
+                console.log(choice2);
+                textInput1.setCustomValidity("");
+                textInput2.setCustomValidity("");
+                if (choice.length == 0){
+                    textInput1.setCustomValidity("A number must be provided.");
+                }
+                if (choice2.length == 0){
+                    textInput2.setCustomValidity('A number must be provided.');
+                }
+                if (Number(choice) > Number(choice2)){
+                    textInput1.setCustomValidity('The minimum of the range must be lower than the maximum.');
+                }
+                if (textInput1.checkValidity() && textInput2.checkValidity()){
+                    clickEnabled = false;
+                    event.data.obj.skipEnabled = false;
+                    event.data.obj._clickEvent(choice, choice2, params);
+                } else {
+                    textInput1.reportValidity();
+                textInput2.reportValidity();
+                }
+            }
+        });
+
+    };
+
+    /* =================== private methods ================== */
+    _isTesting() {
+        GUI.insertSkipButton(this, this.nTrial, this.trialNum);
+    }
+
+    _clickEvent(choice, choice2, params) {
+
+        console.log('clicked');
+
+        let choiceTime = (new Date()).getTime();
+        let reactionTime = choiceTime - params["presentationTime"];
+        if (this.exp.online) {
+            console.log(this.cm);
+            sendToDB(0,
+            {
+                exp: this.exp.expName,
+                expID: this.exp.expID,
+                id: this.exp.subID,
+                test: +(this.exp.isTesting),
+                season: this.cm.seasonNum,
+                trial: this.cm.trialNum,
+                min: choice,
+                max: choice2,
+                reaction_time: reactionTime,
+                session: this.cm.sessionNum,
+                choice_time: choiceTime - this.exp.initTime,
+            },
+            'php/InsertRange.php'
             );
         }
 

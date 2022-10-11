@@ -187,7 +187,7 @@
 .range .range-output .output {
     display: block;
     position: absolute;
-    height: 60px;
+    height: 0px;/*60px;*/
     line-height: 60px;
     min-width: 32px;
     padding: 0 20px;
@@ -199,7 +199,7 @@
     border-radius: 100px;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 0px;/*1.2em;*/
     text-align: center;
 }
 
@@ -208,7 +208,7 @@
     position: absolute;
     bottom: -8px;
     left: 50%;
-    border: 10px solid #383c42;
+    /*border: 10px solid #383c42;*/
     border-bottom: none;
     border-left-color: transparent;
     border-right-color: transparent;
@@ -750,4 +750,83 @@ body {
     font-weight: bolder;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     text-align: center;
+}
+
+.leftlabel {
+    width:100%;
+    text-align:left;
+    top:-50;
+    position:absolute;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.rightlabel {
+    width:100%;
+    text-align:right;
+    top:-50;
+    position:absolute;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.middlelabel {
+    width:100%;
+    text-align:center;
+    top:-50;
+    position:absolute;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.inputunion{
+    font-size: 40;
+    font-style: bold;
+}
+
+.inputmin {
+    height: 50px;
+    width: 150px;
+    border: 2px solid gray;
+    font-size: 40;
+    border-radius: .2rem;
+}
+
+.inputmin :focus{
+    outline: none;
+    border-color:  orange;
+}
+
+.inputmin :valid{
+    border-color: #4FB9A6;
+    background: url("images/check.png") no-repeat 95% 50% transparent;
+
+    background-size: 2%;
+}
+
+.inputmin :invalid{
+    background: url("images/warning.png") no-repeat 95% 50% transparent;
+    background-size: 2.2%;
+}
+
+.inputstack{
+    display:flex;
+    width: 100%;
+    align-items:center;
+    justify-content: center;
+}
+
+.textinputblock{
+    display:flex;
+    flex-flow: column nowrap;
+    height:50%;
+    width: 100%;
+    align-items:center;
+    text-align:center;
+    justify-content: center;
+}
+.textinputtitle{
+    width: 100%;
+    font-size:40;
+    text-align:center;
 }

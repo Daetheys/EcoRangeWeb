@@ -11,6 +11,7 @@ export class ExperimentParameters {
      ***/
 
     constructor({
+        range_feedbacks,
         satisfaction_feedbacks,
         online,
         isTesting,
@@ -37,6 +38,8 @@ export class ExperimentParameters {
 	this.nSeasons = nSeasons
 	this.nTrialsPerSeason = nTrialsPerSeason
 	this.nArms = nArms
+
+    this.range_feedbacks = range_feedbacks;
     this.satisfaction_feedbacks = satisfaction_feedbacks;
 
 
@@ -79,7 +82,6 @@ export class ExperimentParameters {
 	});
 
 	var nb_keys = Object.keys(data).length;
-    console.log('before');
 	var index = 0/*await $.ajax({
 	    type: 'POST',
 	    async: true,
@@ -88,7 +90,6 @@ export class ExperimentParameters {
 	    success: function (r) {return r;},
 	    error: function (r) {console.log('error getting index');}
 	})*/
-    console.log('after');
 	if (index == null)
 	    index = -1;
 	index++;
