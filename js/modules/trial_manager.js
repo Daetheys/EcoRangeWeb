@@ -74,7 +74,8 @@ export class ChoiceManager {
 
         let params = {
 	    rewards:this.rewards,
-	    ranks:this.ranks
+	    ranks:this.ranks,
+        presentationTime:presentationTime
         };
 
         GUI.displayOptions(params);
@@ -107,12 +108,12 @@ export class ChoiceManager {
     _clickEvent(choice, params){
 
 	let choiceTime = (new Date()).getTime();
-        let reactionTime = choiceTime - params["presentationTime"];
+    let reactionTime = choiceTime - params["presentationTime"];
 
-        let ret =  this._getReward(choice, params);
+    let ret =  this._getReward(choice, params);
 	let reward = ret[0];
 	let rank = ret[1];
-        this._showReward(reward, choice);
+    this._showReward(reward, choice);
 	if (this.exp.online) {
             sendToDB(0,
                      {
