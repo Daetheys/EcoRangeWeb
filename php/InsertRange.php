@@ -15,7 +15,7 @@ $SESSION 	= stripslashes(htmlspecialchars($_POST['session']));
 $CTIME 		= stripslashes(htmlspecialchars($_POST['choice_time']));
 
 $stmt = $db->prepare("INSERT INTO nicolas_ecorange_range VALUE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
-$stmt->bind_param("sssiiittdid",
+$stmt->bind_param("sssiiissdid",
     $EXP, $EXPID, $ID, $TEST, $SEASON, $TRIAL, $MIN, $MAX, $RTIME, $SESSION, $CTIME
 );
 $stmt->execute();
