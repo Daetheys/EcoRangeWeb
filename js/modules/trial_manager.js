@@ -273,7 +273,8 @@ export class SliderManager {
         let clickEnabled = true;
 
         let params = {
-            initValue:initValue
+            initValue:initValue,
+            presentationTime:presentationTime
         };
 
         let slider = GUI.displayOptionSlider(undefined,undefined,initValue);//params['stimIdx'], this.imgObj, 50);
@@ -310,7 +311,6 @@ export class SliderManager {
             otherReward, pLottery, elicDistance] = this._getReward(choice, params);
         */
         if (this.exp.online) {
-            console.log(this.cm);
             sendToDB(0,
             {
                 exp: this.exp.expName,
@@ -445,12 +445,10 @@ export class RangeManager {
 
         let presentationTime = (new Date()).getTime();
 
-
-        let initValue = Math.floor(Math.random() * 100);
         let clickEnabled = true;
 
         let params = {
-            initValue:initValue
+            presentationTime:presentationTime
         };
 
         let d = GUI.displayTextInput();
@@ -461,8 +459,6 @@ export class RangeManager {
             if (clickEnabled) {
                 let choice = textInput1.value;
                 let choice2 = textInput2.value;
-                console.log(choice);
-                console.log(choice2);
                 textInput1.setCustomValidity("");
                 textInput2.setCustomValidity("");
                 if (choice.length == 0){
@@ -494,12 +490,9 @@ export class RangeManager {
 
     _clickEvent(choice, choice2, params) {
 
-        console.log('clicked');
-
         let choiceTime = (new Date()).getTime();
         let reactionTime = choiceTime - params["presentationTime"];
         if (this.exp.online) {
-            console.log(this.cm);
             sendToDB(0,
             {
                 exp: this.exp.expName,
