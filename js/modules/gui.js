@@ -382,7 +382,7 @@ export class GUI {
             <form id="form_${n}">
             <div class="range">
             <span class="leftlabel">Very unsatisfied</span>
-            <span class="middlelabel">Even</span>
+            <span class="middlelabel">Neutral</span>
             <span class="rightlabel">Very satisfied</span>
             <input id="slider_${n}" name="range" type="range" value="${initValue}" min="${min}" max="${max}" step="${step}">
             <div class="range-output">

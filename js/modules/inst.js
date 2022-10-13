@@ -189,6 +189,12 @@ export class Instructions {
 	case 9:
 	    GUI.panelSetImage({src:'images/screenshots/screen9.png',width:'50%',height:'50%'});
 	    return;
+    case 11:
+        GUI.panelSetImage({src:'images/screenshots/screen11.png',width:'50%',height:'50%'});
+        return;
+    case 12:
+        GUI.panelSetImage({src:'images/screenshots/screen12.png',width:'50%',height:'50%'});
+        return;
 	default:
 	    GUI.panelRemoveImage();
 	    return;
@@ -197,7 +203,7 @@ export class Instructions {
 
     displayInitialInstruction(funcParams, nextFunc, nextParams) {
 
-        let nPages = 11;
+        let nPages = 13;
         let pageNum = funcParams["pageNum"];
 
         GUI.panelFlush();
@@ -206,16 +212,18 @@ export class Instructions {
         let text = {
             1: ' • In addition of the fixed compensation provided by Prolific, you can double this endowment depending on your choices in the experiment task. \n\n'
                 + ' • Following experimental economics methodological standards, no deception is involved concerning the calculation of the final payoff.\n\n',
-	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are more advantageous than others.',
-	    3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set ends and a new one begins.',
-	    4: 'Here is an short example:',
-	    5: 'Click 1',
-	    6: 'Click 2',
-	    7: 'Click 3',
-	    8: 'Click 4',
-	    9: 'Click 5 - Note that you can click on the same button several times',
-	    10: "In this example, we have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
-	    11: "Now it's your turn."
+    	    2: 'In each trial of this experiments you will be presented with 20 buttons that you can click. Each button returns a number of points. Buttons will differ in terms of payoff: some are more advantageous than others.',
+	        3: 'You will be playing several sets of buttons for a limited number of trials. The amount of points given by each button may vary across sets. We will tell you when a set ends and a new one begins.',
+	        4: 'Here is an short example:',
+	        5: 'Click 1',
+	        6: 'Click 2',
+	        7: 'Click 3',
+	        8: 'Click 4',
+	        9: 'Click 5 - Note that you can click on the same button several times',
+	        10: "In this example, we have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
+            11: "In addition to buttons you will sometimes be asked to tell how much you were satisfied with the last amount of points you got.",
+	        12: "Or to estimate the range of the points available in the set (the points you get by clicking on buttons in the current set) at the end of the set.",
+            13: "Now it's your turn."
         };
 
         GUI.panelSetParagraph(text[pageNum]);

@@ -44,7 +44,7 @@ function main() {
     let sessionNum = 1;
     let seasonNum = 0;
     let instructionNum = 0;//'end';
-    let satisfaction_feedbacks = false;
+    let satisfaction_feedbacks = true;
     let range_feedbacks = true;
     
     // instantiate experiment parameters
