@@ -83,7 +83,7 @@ export class ChoiceManager {
         let clickEnabled = true;
 
         this.sat_feedbacks = {0:true,9:true};
-        this.range_feedbacks = {9:true};
+        this.range_feedbacks = {0:true,9:true};
 
 	for (let i=0; i<20; i++){
 	    $('#td'+i.toString())[0].style.backgroundColor = this.color;
@@ -184,7 +184,7 @@ export class ChoiceManager {
             return;
         }
         //Put range slider
-        if (this.range_feedbacks[this.trialNum] && this.exp.range_feedbacks){
+        if (this.range_feedbacks[this.trialNum] && this.exp.range_feedbacks && !(this.exp.seasonNum == 0 && this.trialNum == 0)){
             this.range_feedbacks[this.trialNum] = false;
             var rangem = new RangeManager({
                 exp: this.exp,
