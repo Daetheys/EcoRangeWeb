@@ -221,8 +221,8 @@ export class Instructions {
 	        8: 'Click 4',
 	        9: 'Click 5 - Note that you can click on the same button several times',
 	        10: "In this example, we have collected 251 points in 5 clicks. This is worth 2 bonus pences approximately.",
-            11: "In addition to buttons you will sometimes be asked to tell how much you were satisfied with the last amount of points you got.",
-	        12: "Or to estimate the range of the points available in the set (the points you get by clicking on buttons in the current set) at the end of the set.",
+            11: "In addition to buttons you will sometimes be asked to indicate how much you were satisfied with the outcome you just received. To do so you have to move a cursor on a scale that goes from 'Very unsatisfied' to 'Very satisfied'.",
+	        12: "Or to indicate what you believe are the maximum and minimum number of points that you can get in a given set of options.",
             13: "Now it's your turn."
         };
 
